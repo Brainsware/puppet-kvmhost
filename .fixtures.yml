@@ -1,4 +1,12 @@
 fixtures:
   symlinks:
-    kvmhost: '#{source_dir}'
+    kvmhost: "#{source_dir}"
   repositories:
+    stdlib: git://github.com/puppetlabs/puppetlabs-stdlib.git
+    apache: git://github.com/puppetlabs/puppetlabs-apache.git
+    cobbler:
+        repo: 'https://bitbucket.org/jsosic/puppet-cobbler'
+        scm: 'hg'
+    libvirt:
+        repo: 'git://github.com/igalic/puppet-libvirt'
+        ref: 'origin/network'

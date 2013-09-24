@@ -14,6 +14,9 @@
 
 require 'spec_helper'
 
-#describe 'kvmhost', :type => :class do
-#  let(:title) { 'kvmhost' }
-#end
+describe 'kvmhost', :type => :class do
+  let(:title) { 'kvmhost' }
+
+  it { should contain_class('libvirt') }
+  it { should contain_class('cobbler') }
+end
