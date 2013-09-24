@@ -19,6 +19,9 @@
 # Copyright 2013 Brainsware
 #
 class kvmhost::install {
+  include 'libvirt'
+  include 'cobbler'
+
   anchor { 'start': } ->
   class { 'libvirt': } ->
   class { 'cobbler': } ->
