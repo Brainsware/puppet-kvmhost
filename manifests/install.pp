@@ -24,6 +24,10 @@ class kvmhost::install {
 
   anchor { 'start': } ->
   class { 'libvirt': } ->
-  class { 'cobbler': } ->
+  class { 'cobbler':
+    webroot        => '/srv/web/cobbler',
+    server_ip      => '192.168.122.1',
+    next_server_ip => '192.168.122.1',
+  } ->
   anchor { 'end': }
 }
