@@ -19,15 +19,9 @@
 # Copyright 2013 Brainsware
 #
 class kvmhost::install {
-  include 'libvirt'
-  include 'cobbler'
 
   anchor { 'start': } ->
   class { 'libvirt': } ->
-  class { 'cobbler':
-    webroot        => '/srv/web/cobbler',
-    server_ip      => '192.168.122.1',
-    next_server_ip => '192.168.122.1',
-  } ->
+  class { 'kvmhost::install::cobbler': } ->
   anchor { 'end': }
 }
