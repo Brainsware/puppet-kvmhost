@@ -20,8 +20,8 @@
 #
 class kvmhost::install {
 
-  anchor { 'start': } ->
-  class { 'libvirt': } ->
+  anchor { 'start-install': } ->
+  class { 'kvmhost::install::libvirt': } ->
   class { 'kvmhost::install::cobbler': } ->
-  anchor { 'end': }
+  anchor { 'end-install': }
 }

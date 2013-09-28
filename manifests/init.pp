@@ -20,5 +20,8 @@
 # Copyright 2013 Brainsware
 #
 class kvmhost {
-  include kvmhost::install
+  anchor { 'start-init': } ->
+  class { 'kvmhost::install': } ->
+  class { 'kvmhost::config': } ->
+  anchor { 'end-init': }
 }
