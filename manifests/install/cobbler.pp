@@ -21,9 +21,10 @@
 class kvmhost::install::cobbler {
 
   # Manage the apache installation on this server
-  class { '::apache':
-    default_vhost => false,
-  }
+  # this now happens in hiera's kvmhost role!
+  #class { '::apache':
+  #  default_vhost => false,
+  #}
 
   # Secure it by only listening to private interfaces:
   apache::listen {[
@@ -41,7 +42,4 @@ class kvmhost::install::cobbler {
     next_server_ip => '192.168.122.1',
     allow_access   => '192.168.122.1 127.0.0.1',
   }
-
-  Class[::apache] ->
-  Class[::cobbler]
 }
