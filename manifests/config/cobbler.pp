@@ -21,4 +21,15 @@
 #
 class kvmhost::config::cobbler {
 
+  $cobblerdistros = hiera ('cobblerdistros', {})
+  $distrodefaults = { 'destdir' => $::cobbler::distro_path }
+  create_resources('cobblerdistro', $cobblerdistros, $distrodefaults)
+
+  $cobblerprofiles = hiera('cobblerprofiles', {})
+  $profiledefaults = {}
+  create_resources('cobblerprofile', $cobblerprofiles, $profiledefaults)
+
+  $cobblersystems = hiera('cobblersystems', {})
+  $systemdefaults = {}
+  create_resources('cobblersystem', $cobblersystems, $systemdefaults)
 }
