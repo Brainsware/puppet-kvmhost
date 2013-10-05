@@ -42,4 +42,14 @@ class kvmhost::install::cobbler {
     next_server_ip => '192.168.122.1',
     allow_access   => '192.168.122.1 127.0.0.1',
   }
+
+  file { '/srv/www/cobbler/ks_mirror/config/internal.cfg':
+    content => template('kvmhost/internal.cfg.erb'),
+    require => Class[::cobbler],
+  }
+
+  file { '/srv/www/cobbler/ks_mirror/config/external.cfg':
+    content => template('kvmhost/external.cfg.erb'),
+    require => Class[::cobbler],
+  }
 }
