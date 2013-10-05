@@ -30,6 +30,6 @@ class kvmhost::config::cobbler {
   create_resources('cobblerprofile', $cobblerprofiles, $profiledefaults)
 
   $cobblersystems = hiera('cobblersystems', {})
-  $systemdefaults = {}
+  $systemdefaults = { 'power_type' => 'virsh' }
   create_resources('cobblersystem', $cobblersystems, $systemdefaults)
 }
