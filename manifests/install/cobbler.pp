@@ -20,13 +20,15 @@
 #
 class kvmhost::install::cobbler {
 
-  # Manage the apache installation on this server
-  # this now happens in hiera's kvmhost role!
-  #class { '::apache':
-  #  default_vhost => false,
-  #}
+  # this is needed for powerr management!
+  package { 'fence-agents':
+    ensure => latest,
+  }
 
-  # Secure it by only listening to private interfaces:
+  # Managing the apache installation on this server
+  # now happens in hiera's kvmhost role!
+
+  # However, we secure it here by only listening to private interfaces:
   apache::listen {[
       '192.168.122.1:80',
       '127.0.0.1:80',
