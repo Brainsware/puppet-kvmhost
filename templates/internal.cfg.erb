@@ -10,7 +10,7 @@ d-i keyboard-configuration/modelcode string pc105
 d-i console-keymaps-at/keymap string en-latin1-nodeadkeys
 
 d-i netcfg/disable_autoconfig boolean true
-d-i netcfg/choose_interface select eth0
+d-i netcfg/choose_interface select auto
 d-i netcfg/get_hostname string $hostname
 d-i netcfg/get_domain string esat
 d-i netcfg/get_ipaddress string $interfaces['eth0']['ip_address']
@@ -121,12 +121,44 @@ d-i pkgsel/install-language-support boolean false
 d-i pkgsel/update-policy select unattended-upgrades
 d-i pkgsel/updatedb boolean true
 
+# create static network configuration
+
+#set $lo = '# Loopback device:\\nauto lo\\niface lo inet loopback\\n'
+# next, the primary interface:
+#set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask %s\\n    gateway %s\\n' % ($interfaces['eth0']['ip_address'], $interfaces['eth0']['netmask'], $gateway)
+#set $interfaces = $lo+$eth0
+
+# Build resolf.conf
+#set $resolvconf = ''
+#for $search in $name_servers_search
+  #set $resolvconf += 'search %s\\n' % $search
+#end for
+#for $ns in $name_servers
+  #set $resolvconf += 'nameserver %s\\n' % $ns
+#end for
+
+# extract host from fqdn:
+#set $host = $hostname.split('.')[0]
+
+#set $path = 'PATH="/opt/bw/bin:/opt/bw/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"'
+
 # really, really dist-upgrade
 d-i preseed/late_command string in-target apt-get update ; \
                                 in-target apt-get -y dist-upgrade ; \
                                 in-target apt-get -y autoremove ; \
                                 in-target apt-get autoclean ; \
-                                in-target apt-get clean
+                                in-target apt-get clean ; \
+                                /bin/echo -e '$lo$eth0' > /target/etc/network/interfaces ; \
+								/bin/echo -e '$host' > /target/etc/hostname ; \
+								/bin/echo -e '$resolvconf' > /target/etc/resolvconf/resolv.conf.d/base ; \
+								/bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
+								/bin/echo -e '$path' > /target/etc/environment ; \
+								/bin/mkdir /target/etc/puppet ; \
+								/usr/bin/wget -P/target/etc/puppet http://$http_server/cblr/ks_mirror/config/puppet.conf
+
+# Verbose output and no boot splash screen.
+d-i	debian-installer/quiet	boolean false
+d-i	debian-installer/splash	boolean false
 
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
