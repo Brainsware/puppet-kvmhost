@@ -26,7 +26,15 @@ class kvmhost::config::cobbler {
   create_resources('cobblerdistro', $cobblerdistros, $distrodefaults)
 
   $cobblerprofiles = hiera('cobblerprofiles', {})
-  $profiledefaults = {}
+  $profiledefaults = {
+    'nameservers'    => [ '176.9.94.130', '213.133.99.99', '213.133.100.100' ],
+    'virt_path'      => 'vg0',
+    'virt_file_size' => '80',
+    'virt_type'      => 'kvm',
+    'virt_auto_boot' => true,
+    'repos'          => [],
+    'search'         => [  'esat.' ],
+  }
   create_resources('cobblerprofile', $cobblerprofiles, $profiledefaults)
 
   $cobblersystems = hiera('cobblersystems', {})
