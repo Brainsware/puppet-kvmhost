@@ -34,5 +34,5 @@ class kvmhost::network inherits kvmhost {
     path        => '/bin:/usr/bin',
     command     => '/etc/init.d/networking restart',
   }
-  
+
 }
