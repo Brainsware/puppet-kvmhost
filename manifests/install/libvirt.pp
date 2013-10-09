@@ -40,11 +40,10 @@ class kvmhost::install::libvirt {
     ip           => [ $pxe_ip ],
   }
 
-  libvirt::network { 'direct-net':
-    ensure             => 'enabled',
-    autostart          => true,
-    forward_mode       => 'bridge',
-    forward_dev        => 'eth0',
-    forward_interfaces => [ 'eth0', ],
+  libvirt::network { 'host-bridge':
+    ensure       => 'enabled',
+    autostart    => true,
+    forward_mode => 'bridge',
+    bridge       => 'virbr1',
   }
 }

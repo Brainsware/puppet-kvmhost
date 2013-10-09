@@ -1,0 +1,18 @@
+### Hetzner's default network, modified to fit a bridge
+# Loopback device:
+auto lo
+iface lo inet loopback
+
+# device: <%= @interface %>
+auto  <%= @bridge %>
+iface <%= @bridge %> inet static
+  address   <%= @ip %>
+  broadcast <%= @broadcast %>
+  netmask   <%= @netmask %>
+  gateway   <%= @gateway %>
+  bridge_ports <%= @interface %>
+  bridge_stp on
+  bridge_maxwait 0
+  # default route to access subnet
+  up route add -net <%= @network %> netmask <%= @netmask %> gw <%= @gateway %> <%= @bridge %>
+

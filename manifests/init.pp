@@ -19,8 +19,33 @@
 #
 # Copyright 2013 Brainsware
 #
-class kvmhost {
+class kvmhost (
+  $ip        = undef,
+  $broadcast = undef,
+  $netmask   = undef,
+  $gateway   = undef,
+  $network   = undef,
+  $bridge    = 'virbr1',
+  $interface = 'eth0',
+){
+  unless is_ip_address($ip) {
+    fail('ip must be a valid IP address')
+  }
+  unless is_ip_address($broadcast) {
+    fail('broadcast must be a valid IP address')
+  }
+  unless is_ip_address($netmask) {
+    fail('netmask must be a valid IP address')
+  }
+  unless is_ip_address($network) {
+    fail('network must be a valid IP address')
+  }
+  unless is_ip_address($gateway) {
+    fail('gateway must be a valid IP address')
+  }
+
   anchor { 'start-init': } ->
+  class { 'kvmhost::network': } ->
   class { 'kvmhost::install': } ->
   class { 'kvmhost::config': } ->
   anchor { 'end-init': }
