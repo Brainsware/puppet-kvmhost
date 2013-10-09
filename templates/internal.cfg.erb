@@ -23,10 +23,10 @@ d-i hw-detect/load_firmware boolean true
 
 
 # Setup the installation source
-d-i mirror/country string Hetzner Mirror
-d-i mirror/http/mirror select de.archive.ubuntu.com
-d-i mirror/http/hostname string de.archive.ubuntu.com
-d-i mirror/http/directory string /ubuntu
+d-i mirror/country string manual
+d-i mirror/http/mirror select mirror.hetzner.de
+d-i mirror/http/hostname string mirror.hetzner.de
+d-i mirror/http/directory string /ubuntu/packages
 
 d-i mirror/suite string precise
 
@@ -37,7 +37,7 @@ d-i clock-setup/ntp-server string europe.pool.ntp.org
 
 
 # Fuck you preseed. Fuck you. I'm giving up on this shit. Have your bloody LVM
-d-i partman-auto/disk string /dev/sda
+d-i partman-auto/disk string /dev/vda
 d-i partman-auto-lvm/guided_size string max
 d-i partman-auto-lvm/new_vg_name string vm0
 d-i partman-auto-lvm/no_boot boolean true
@@ -71,10 +71,15 @@ d-i passwd/root-password-again password <%= @defaultrootpw %>
 
 
 # enable ALL THE Ubuntu repos (universe, multiverse, restricted, extras, backports)
+# but since hetzner doesn't have source repos, don't enable those.
 d-i apt-setup/universe boolean true
+d-i apt-setup/universe/source boolean false
 d-i apt-setup/multiverse boolean true
+d-i apt-setup/multiverse/source boolean false
 d-i apt-setup/restricted boolean true
+d-i apt-setup/restricted/source boolean false
 d-i apt-setup/extras boolean true
+d-i apt-setup/extras/source boolean false
 d-i apt-setup/backports boolean true
 
 # Add git-core ppa:
@@ -103,8 +108,8 @@ d-i apt-setup/local2/key string \
 
 # Add our own repo!
 d-i apt-setup/local3/repository string \
-    http://pkg.esotericsystems.at precise main testing
-d-i apt-setup/local3/comment Brainsware internal APT repo (main and testing)
+    http://pkg.esotericsystems.at precise main
+d-i apt-setup/local3/comment Brainsware internal APT repo
 d-i apt-setup/local3/source boolean false
 d-i apt-setup/local3/key string \
     http://pkg.esotericsystems.at/pubkey.gpg
@@ -112,7 +117,7 @@ d-i apt-setup/local3/key string \
 
 tasksel tasksel/first multiselect standard
 d-i pkgsel/include string openssh-server build-essential git lsb-release chrony vim-nox acpid python-software-properties \
-                          byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-lts-quantal virt-what \
+                          byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-lts-raring virt-what \
                           puppet rubygem-facter rubygem-hiera rubygem-json-pure rubygem-ruby-shadow rubygem-ruby-augeas \
                           rubygem-puppet-lint libaugeas0 augeas-lenses augeas-tools openjdk-7-jre-headless ubuntu-extras-keyring
 d-i pkgsel/language-packs multiselect en
@@ -166,5 +171,11 @@ d-i grub-installer/with_other_os boolean true
 # Use the following option to add additional boot parameters for the
 # installed system (if supported by the bootloader installer).
 # Note: options passed to the installer will be added automatically.
-d-i debian-installer/add-kernel-opts string $kernel_options_post
+# XXX here we hardcode two of my favourite options: nomodeset, because fuck
+# graphix on the server, and elevator=deadline -- because the default scheduler is arse.
+d-i debian-installer/add-kernel-opts string nomodeset elevator=deadline
 d-i finish-install/reboot_in_progress note
+
+# This will power off the machine instead of just halting it.
+# The reason we do this is so we can modify the CPU configuration
+d-i debian-installer/exit/poweroff boolean true
