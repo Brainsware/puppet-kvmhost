@@ -29,7 +29,10 @@ class kvmhost::config::cobbler {
 
   $cobblerprofiles = hiera('cobblerprofiles', {})
   $profiledefaults = {
-    'nameservers'    => [ '176.9.94.130', '213.133.99.99', '213.133.100.100' ],
+    'nameservers'    => [
+      '176.9.94.130', '213.133.99.99', '213.133.100.100',
+      '2a01:4f8:0:a0a1::add:1010', '2a01:4f8:0:a111::add:9898', '2a01:4f8:0:a102::add:9999',
+    ],
     'virt_path'      => 'vg0',
     'virt_file_size' => '80',
     'virt_type'      => 'kvm',
