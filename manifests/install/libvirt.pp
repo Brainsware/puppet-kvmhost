@@ -22,7 +22,8 @@
 class kvmhost::install::libvirt inherits kvmhost {
 
   class { '::libvirt':
-    virtinst           => false,
+    virtinst           => true,
+    radvd              => true,
     unix_sock_group    => 'libvirtd',
     unix_sock_rw_perms => '0770',
     auth_unix_ro       => 'none',
