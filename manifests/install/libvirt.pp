@@ -43,6 +43,7 @@ class kvmhost::install::libvirt {
     ensure       => 'enabled',
     autostart    => true,
     forward_mode => 'nat',
+    bridge       => 'virbr0',
     ip           => [ $pxe_ip ],
   }
 
