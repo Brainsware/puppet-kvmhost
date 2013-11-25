@@ -23,7 +23,9 @@ class kvmhost::config::cobbler {
 
   $cobblerdistros = hiera ('cobblerdistros', {})
   $distrodefaults = { 'destdir' => $::cobbler::distro_path }
-  create_resources('cobblerdistro', $cobblerdistros, $distrodefaults)
+  if $cobblerdistros {
+    create_resources('cobblerdistro', $cobblerdistros, $distrodefaults)
+  }
 
   $cobblerprofiles = hiera('cobblerprofiles', {})
   $profiledefaults = {
@@ -35,9 +37,13 @@ class kvmhost::config::cobbler {
     'repos'          => [],
     'search'         => [  'esat.' ],
   }
-  create_resources('cobblerprofile', $cobblerprofiles, $profiledefaults)
+  if $cobblerprofiles {
+    create_resources('cobblerprofile', $cobblerprofiles, $profiledefaults)
+  }
 
   $cobblersystems = hiera('cobblersystems', {})
   $systemdefaults = { 'power_type' => 'virsh' }
-  create_resources('cobblersystem', $cobblersystems, $systemdefaults)
+  if $cobblersystems {
+    create_resources('cobblersystem', $cobblersystems, $systemdefaults)
+  }
 }
