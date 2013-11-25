@@ -13,6 +13,11 @@ iface <%= @bridge %> inet static
   bridge_ports <%= @interface %>
   bridge_stp on
   bridge_maxwait 0
+  # add IPv6 address
+  up ip addr add <%= @ipv6 -%>::1/64 dev <%= @bridge %>
+  up ip addr add <%= @ipv6 -%>:e4:1/112 dev <%= @bridge %>
   # default route to access subnet
   up route add -net <%= @network %> netmask <%= @netmask %> gw <%= @gateway %> <%= @bridge %>
+  # add Hetzner IPv6 route
+  up route add add default via fe80::1 dev <%= @bridge %>
 

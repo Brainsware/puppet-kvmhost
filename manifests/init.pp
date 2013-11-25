@@ -27,6 +27,7 @@ class kvmhost (
   $network   = undef,
   $bridge    = 'virbr1',
   $interface = 'eth0',
+  $ipv6      = undef,
 ){
   unless is_ip_address($ip) {
     fail('ip must be a valid IP address')
@@ -42,6 +43,9 @@ class kvmhost (
   }
   unless is_ip_address($gateway) {
     fail('gateway must be a valid IP address')
+  }
+  unless is_ip_address("${ipv6}::1") {
+    fail('IPv6 must be a valid IPv6 address')
   }
 
   anchor { 'start-init': } ->
