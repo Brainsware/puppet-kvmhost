@@ -19,7 +19,7 @@
 #
 # Copyright 2013 Brainsware
 #
-class kvmhost::install::libvirt {
+class kvmhost::install::libvirt inherits kvmhost {
 
   class { '::libvirt':
     virtinst           => false,
@@ -34,6 +34,11 @@ class kvmhost::install::libvirt {
     end        => '192.168.122.254',
     bootp_file => 'pxelinux.0',
   }
+  # "private" IPv6 networks are on ::10
+  $private_ipv6 = {
+    'address' => "${kvmhost::ipv6}::10:1",
+    'prefix'  => '112',
+  }
   $pxe_ip = {
     'address' => '192.168.122.1',
     'prefix'  => '24',
@@ -45,6 +50,7 @@ class kvmhost::install::libvirt {
     forward_mode => 'nat',
     bridge       => 'virbr0',
     ip           => [ $pxe_ip ],
+    ipv6         => [ $private_ipv6 ],
   }
 
   libvirt::network { 'host-bridge':
