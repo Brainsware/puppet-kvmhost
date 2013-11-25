@@ -13,11 +13,16 @@ iface <%= @bridge %> inet static
   bridge_ports <%= @interface %>
   bridge_stp on
   bridge_maxwait 0
-  # add IPv6 address
+  # Set-up IPv6 and Hetzner routes
+  # guarantee idempotency:
+  pre-up ip addr del <%= @ipv6 -%>::1/64 dev <%= @bridge %> || true
+  pre-up ip addr del <%= @ipv6 -%>::e4:1/112 dev <%= @bridge %> || true
+  # add IPv6 address, e4 == "external" IPv6 network
   up ip addr add <%= @ipv6 -%>::1/64 dev <%= @bridge %>
-  up ip addr add <%= @ipv6 -%>:e4:1/112 dev <%= @bridge %>
+  up ip addr add <%= @ipv6 -%>::e4:1/112 dev <%= @bridge %>
   # default route to access subnet
-  up route add -net <%= @network %> netmask <%= @netmask %> gw <%= @gateway %> <%= @bridge %>
+  # idempotency here is easier, because we have 'replace'
+  up ip route replace to <%= @network -%>/<%= @netmask %> via <%= @gateway %> dev <%= @bridge %>
   # add Hetzner IPv6 route
-  up route add add default via fe80::1 dev <%= @bridge %>
+  up ip route replace default via fe80::1 dev <%= @bridge %>
 
