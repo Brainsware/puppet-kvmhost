@@ -58,4 +58,9 @@ class kvmhost::install::cobbler {
     source  => 'puppet:///modules/kvmhost/puppet.conf',
     require => Class[::cobbler],
   }
+  file { '/srv/www/cobbler/ks_mirror/config/post-provision.sh':
+    source  => 'puppet:///modules/kvmhost/post-provision.sh',
+    mode    => '0755',
+    require => Class[::cobbler],
+  }
 }
