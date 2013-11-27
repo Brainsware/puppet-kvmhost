@@ -131,8 +131,10 @@ d-i pkgsel/updatedb boolean true
 #set $lo = '# Loopback device:\\nauto lo\\niface lo inet loopback\\n'
 # next, the primary interface:
 #set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask %s\\n    gateway %s\\n' % ($interfaces['eth0']['ip_address'], $interfaces['eth0']['netmask'], $gateway)
+#set $eth0 += '\\niface eth0 inet6 static\\n    address %s\\n    netmask    112\\n    gateway %s\\n' % ($interfaces['eth0']['ipv6_address'], $interfaces['eth0']['ipv6_default_gateway'])
 # Finally, create the internal network interface:
 #set $eth1 = '\\n# device: eth1\\nauto  eth1\\niface eth1 inet static\\n    address %s\\n    netmask   %s\\n' % ($interfaces['eth1']['ip_address'], $interfaces['eth1']['netmask'])
+#set $eth1 += '\\niface eth1 inet6 static\\n    address %s\\n    netmask    112\\n' % ($interfaces['eth1']['ipv6_address'])
 #set $interfaces = $lo+$eth0+$eth1
 
 # Build resolf.conf
