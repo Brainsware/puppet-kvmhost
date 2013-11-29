@@ -60,4 +60,14 @@ class kvmhost::install::libvirt inherits kvmhost {
     forward_mode => 'bridge',
     bridge       => 'virbr1',
   }
+
+  libvirt_pool { 'default':
+    ensure => 'absent',
+  }
+  libvirt_pool { 'vm_storage':
+    ensure     => 'active',
+    type       => 'logical',
+    sourcename => 'vg0',
+    target     => '/dev/vg0'
+  }
 }
