@@ -48,6 +48,11 @@ class kvmhost (
     fail('IPv6 must be a valid IPv6 address')
   }
 
+  # Fill in vm_profile fact.
+  file { '/etc/facter/facts.d/vm_profile.txt':
+    content => 'vm_profile=kvmhost',
+  }
+
   anchor { 'start-init': } ->
   class { 'kvmhost::network': } ->
   class { 'kvmhost::install': } ->
