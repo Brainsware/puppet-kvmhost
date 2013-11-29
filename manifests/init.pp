@@ -53,6 +53,22 @@ class kvmhost (
     content => 'vm_profile=kvmhost',
   }
 
+  # export *our* network
+  @@ufw::allow { "allow-from-trusted-private-${kvmhost::ipv6}::":
+    from => "${kvmhost::ipv6}::/64",
+    tag  => 'trusted-ipv6'
+  }
+
+  # collect all KVM Hosts' IPv6 networks, and allow them
+  Ufw::Allow <<| tag == 'trusted-ipv6' |>> {
+    ip => "${kvmhost::ipv6}::10:0/112",
+  } ->
+  ufw::allow { 'allow-ssh-on-kvm-host':
+    port => '22',
+    ip   => 'any',
+    from => 'any',
+  }
+
   anchor { 'start-init': } ->
   class { 'kvmhost::network': } ->
   class { 'kvmhost::install': } ->
