@@ -59,15 +59,6 @@ class kvmhost (
     tag  => 'trusted-ipv6'
   }
 
-  # collect all KVM Hosts' IPv6 networks, and allow them
-  Ufw::Allow <<| tag == 'trusted-ipv6' |>> {
-    ip => "${kvmhost::ipv6}::10:0/112",
-  } ->
-  ufw::allow { 'allow-ssh-on-kvm-host':
-    port => '22',
-    ip   => 'any',
-    from => 'any',
-  }
 
   anchor { 'start-init': } ->
   class { 'kvmhost::network': } ->
