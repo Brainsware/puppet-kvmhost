@@ -36,7 +36,9 @@ d-i clock-setup/ntp boolean true
 d-i clock-setup/ntp-server string europe.pool.ntp.org
 
 
-# Fuck you preseed. Fuck you. I'm giving up on this shit. Have your bloody LVM
+# erase partions
+d-i partman/early_command /bin/dd if=/dev/zero of=/dev/vda bs=1M count=512
+# Then, create an LVM setup
 d-i partman-auto/disk string /dev/vda
 d-i partman-auto-lvm/guided_size string max
 d-i partman-auto-lvm/new_vg_name string vm0
