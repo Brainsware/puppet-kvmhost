@@ -20,14 +20,15 @@
 # Copyright 2013 Brainsware
 #
 class kvmhost (
-  $ip        = undef,
-  $broadcast = undef,
-  $netmask   = undef,
-  $gateway   = undef,
-  $network   = undef,
-  $bridge    = 'virbr1',
-  $interface = 'eth0',
-  $ipv6      = undef,
+  $ip           = undef,
+  $broadcast    = undef,
+  $netmask      = undef,
+  $gateway      = undef,
+  $network      = undef,
+  $bridge       = 'virbr1',
+  $interface    = 'eth0',
+  $ipv6         = undef,
+  $ipv6_gateway = undef,
 ){
   unless is_ip_address($ip) {
     fail('ip must be a valid IP address')
@@ -46,6 +47,9 @@ class kvmhost (
   }
   unless is_ip_address("${ipv6}::1") {
     fail('IPv6 must be a valid IPv6 address')
+  }
+  unless is_ip_address($ipv6_gateway) {
+    fail('IPv6 Gateway must be a valid IPv6 address')
   }
 
   # Fill in vm_profile fact.
