@@ -137,15 +137,6 @@ d-i pkgsel/updatedb boolean true
 #set $eth1 += '\\niface eth1 inet6 static\\n    address %s\\n    netmask    112\\n' % ($interfaces['eth1']['ipv6_address'])
 #set $interfaces = $lo+$eth0+$eth1
 
-# Build resolf.conf
-#set $resolvconf = ''
-#for $search in $name_servers_search
-  #set $resolvconf += 'search %s\\n' % $search
-#end for
-#for $ns in $name_servers
-  #set $resolvconf += 'nameserver %s\\n' % $ns
-#end for
-
 # extract host from fqdn:
 #set $host = $hostname.split('.')[0]
 
@@ -153,21 +144,23 @@ d-i pkgsel/updatedb boolean true
 
 # really, really dist-upgrade
 d-i preseed/late_command string in-target apt-get update ; \
-                                in-target apt-get -y dist-upgrade ; \
-                                in-target apt-get -y autoremove ; \
-                                in-target apt-get autoclean ; \
-                                in-target apt-get clean ; \
-                                /bin/echo -e '$interfaces' > /target/etc/network/interfaces ; \
-								/bin/echo -e '$host' > /target/etc/hostname ; \
-								/bin/echo -e '$resolvconf' > /target/etc/resolvconf/resolv.conf.d/base ; \
-								/bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
-								/bin/echo -e '$path' > /target/etc/environment ; \
-								/bin/mkdir /target/etc/puppet ; \
-								/bin/mkdir /target/etc/facter/facts.d ; \
-								/bin/echo 'vm_profile=external' > /target/etc/facter/facts.d/vm_profile.txt ; \
-								/usr/bin/wget -P/target/etc/puppet http://$http_server/cblr/ks_mirror/config/puppet.conf ; \
-								/usr/bin/wget -P/target/usr/local/sbin http://$http_server/cblr/ks_mirror/config/post-provision.sh ; \
-								/bin/chmod +x /target/usr/local/sbin/post-provision.sh
+    in-target apt-get -y dist-upgrade ; \
+    in-target apt-get -y autoremove ; \
+    in-target apt-get autoclean ; \
+    in-target apt-get clean ; \
+    /bin/echo -e '$interfaces' > /target/etc/network/interfaces ; \
+    /bin/echo -e '$host' > /target/etc/hostname ; \
+    /bin/rm /target/etc/resolvconf/resolv.conf.d/base ; \
+    /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.conf ; \
+    /bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
+    /bin/echo -e '$path' > /target/etc/environment ; \
+    /bin/mkdir -p /target/etc/puppet ; \
+    /bin/mkdir -p /target/etc/facter/facts.d ; \
+    /bin/echo 'vm_profile=external' > /target/etc/facter/facts.d/vm_profile.txt ; \
+    /usr/bin/wget -P/target/etc/puppet http://$http_server/cblr/ks_mirror/config/puppet.conf ; \
+    /usr/bin/wget -P/target/usr/local/sbin http://$http_server/cblr/ks_mirror/config/post-provision.sh ; \
+    /usr/bin/wget -P/target/etc/facter/facts.d http://$http_server/cblr/ks_mirror/config/vm_parent.txt ; \
+    /bin/chmod +x /target/usr/local/sbin/post-provision.sh
 
 
 # Verbose output and no boot splash screen.

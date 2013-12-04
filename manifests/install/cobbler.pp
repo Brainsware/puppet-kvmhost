@@ -63,4 +63,13 @@ class kvmhost::install::cobbler {
     mode    => '0755',
     require => Class[::cobbler],
   }
+  file { '/srv/www/cobbler/ks_mirror/config/vm_parent.txt':
+    content => "vm_parent=${::fqdn}",
+    require => Class[::cobbler],
+  }
+  file { '/srv/www/cobbler/ks_mirror/config/resolv.conf':
+    ensure  => link,
+    target  => '/etc/resolv.conf',
+    require => Class[::cobbler],
+  }
 }
