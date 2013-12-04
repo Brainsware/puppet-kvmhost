@@ -31,25 +31,25 @@ class kvmhost (
   $ipv6_gateway = undef,
 ){
   unless is_ip_address($ip) {
-    fail('ip must be a valid IP address')
+    fail("p must be a valid IP address: ${ip}")
   }
   unless is_ip_address($broadcast) {
-    fail('broadcast must be a valid IP address')
+    fail("broadcast must be a valid IP address: ${broadcast}")
   }
   unless is_ip_address($netmask) {
-    fail('netmask must be a valid IP address')
+    fail("netmask must be a valid IP address: ${netmask}")
   }
   unless is_ip_address($network) {
-    fail('network must be a valid IP address')
+    fail("network must be a valid IP address: ${network}")
   }
   unless is_ip_address($gateway) {
-    fail('gateway must be a valid IP address')
+    fail("gateway must be a valid IP address: ${gateway}")
   }
   unless is_ip_address("${ipv6}::1") {
-    fail('IPv6 must be a valid IPv6 address')
+    fail("IPv6 must be a valid IPv6 address: ${ipv6}::1")
   }
   unless is_ip_address($ipv6_gateway) {
-    fail('IPv6 Gateway must be a valid IPv6 address')
+    fail("IPv6 Gateway must be a valid IPv6 address: ${ipv6_gateway}")
   }
 
   # Fill in vm_profile fact.
