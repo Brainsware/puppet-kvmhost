@@ -6,6 +6,10 @@ wget -P/etc http://192.168.122.1/cblr/ks_mirror/config/resolv.conf
 
 apt-get update
 apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
+
+# remove old kernel:
+dpkg -l | awk '/raring/{print $2}' | xargs apt-get purge -y
+
 while ! /opt/bw/bin/puppet agent -t --waitforcert 120 --debug ; do
 	# run puppet as often as necessary before the host is setup
 	sleep 1
