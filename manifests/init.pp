@@ -29,6 +29,8 @@ class kvmhost (
   $interface    = 'eth0',
   $ipv6         = undef,
   $ipv6_gateway = undef,
+  $root_key_private = undef,
+  $root_key_private = undef,
 ){
   unless is_ip_address($ip) {
     fail("p must be a valid IP address: ${ip}")

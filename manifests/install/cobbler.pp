@@ -72,4 +72,28 @@ class kvmhost::install::cobbler {
     target  => '/etc/resolv.conf',
     require => Class[::cobbler],
   }
+  file { '/root/id_rsa':
+    content  => $::kvmhost::root_key_private,
+    require => Class[::cobbler],
+  }
+  file { '/root/id_rsa.pub':
+    content  => $::kvmhost::root_key_public,
+    require => Class[::cobbler],
+  }
+  file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa':
+    ensure  => link,
+    target  => '/root/id_rsa',
+    require => [
+      Class[::cobbler],
+      File['/root/id_rsa'],
+    ]
+  }
+  file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa.pub':
+    ensure  => link,
+    target  => '/root/id_rsa.pub',
+    require => [
+      Class[::cobbler],
+      File['/root/id_rsa.pub'],
+    ]
+  }
 }
