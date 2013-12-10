@@ -132,11 +132,11 @@ d-i pkgsel/updatedb boolean true
 
 #set $lo = '# Loopback device:\\nauto lo\\niface lo inet loopback\\n'
 # next, the external interface:
-#set $eth1 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask 255.255.255.255\\n    gateway %s\\n    pointopoint %s' % ($interfaces['eth0']['ip_address'], $gateway, $gateway)
+#set $eth1 = '\\n# device: eth1\\nauto  eth1\\niface eth1 inet static\\n    address %s\\n    netmask 255.255.255.255\\n    gateway %s\\n    pointopoint %s' % ($interfaces['eth1']['ip_address'], $gateway, $gateway)
 # Finally, create the internal network interface:
 # update the internal Interface to include IPv6 and IPv4
-#set $eth0 = '\\n# device: eth1\\nauto  eth1\\niface eth1 inet static\\n    address %s\\n    netmask   %s\\n' % ($interfaces['eth1']['ip_address'], $interfaces['eth1']['netmask'])
-#set $eth0 += '\\niface eth1 inet6 static\\n    address %s\\n    netmask    112\\n' % ($interfaces['eth1']['ipv6_address'])
+#set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask   %s\\n' % ($interfaces['eth0']['ip_address'], $interfaces['eth0']['netmask'])
+#set $eth0 += '\\niface eth0 inet6 static\\n    address %s\\n    netmask    112\\n' % ($interfaces['eth0']['ipv6_address'])
 #set $interfaces = $lo+$eth0+$eth1
 
 # extract host from fqdn:
