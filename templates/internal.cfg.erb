@@ -9,7 +9,7 @@ d-i keyboard-configuration/layoutcode string en
 d-i keyboard-configuration/modelcode string pc105
 d-i console-keymaps-at/keymap string en-latin1-nodeadkeys
 
-#set $hostname = $hostname if $hostname else $system_name
+#set $hostname = $hostname or $system_name
 
 d-i netcfg/disable_autoconfig boolean true
 d-i netcfg/choose_interface select auto
