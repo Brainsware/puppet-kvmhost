@@ -65,7 +65,7 @@ class kvmhost::install::libvirt inherits kvmhost {
     ensure => 'absent',
   }
   libvirt_pool { 'vm_storage':
-    ensure     => 'active',
+    ensure     => 'present',
     type       => 'logical',
     sourcename => 'vg0',
     target     => '/dev/vg0'
