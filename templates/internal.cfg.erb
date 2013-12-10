@@ -133,7 +133,7 @@ d-i pkgsel/updatedb boolean true
 # create static network configuration
 
 #set $lo = '# Loopback device:\\nauto lo\\niface lo inet loopback\\n'
-# next, the primary interface:
+# next, the update the primary (internal) interface to include IPv4 and IPv6
 #set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask %s\\n    gateway %s\\n' % ($interfaces['eth0']['ip_address'], $interfaces['eth0']['netmask'], $gateway)
 #set $eth0 += '\\niface eth0 inet6 static\\n    address %s\\n    netmask    112\\n    gateway %s\\n' % ($interfaces['eth0']['ipv6_address'], $interfaces['eth0']['ipv6_default_gateway'])
 #set $interfaces = $lo+$eth0
