@@ -52,7 +52,6 @@ class kvmhost::config::cobbler inherits kvmhost {
       'eth0'       => {
         'netmask'              => '255.255.255.0',
         'ipv6_default_gateway' => "${kvmhost::ipv6}::10:1",
-        'virt_bridge'          => 'virbr0',
       }
     }
   }
