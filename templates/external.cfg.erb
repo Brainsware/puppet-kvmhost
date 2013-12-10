@@ -10,7 +10,7 @@ d-i keyboard-configuration/modelcode string pc105
 d-i console-keymaps-at/keymap string en-latin1-nodeadkeys
 
 d-i netcfg/disable_autoconfig boolean true
-d-i netcfg/choose_interface select eth1
+d-i netcfg/choose_interface select eth0
 d-i netcfg/get_hostname string $hostname
 d-i netcfg/get_domain string esat
 d-i netcfg/get_ipaddress string $interfaces['eth0']['ip_address']
