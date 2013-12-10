@@ -19,7 +19,7 @@
 #
 # Copyright 2013 Brainsware
 #
-class kvmhost::config::cobbler {
+class kvmhost::config::cobbler inherits kvmhost {
 
   $cobblerdistros = hiera ('cobblerdistros', {})
   $distrodefaults = { 'destdir' => $::cobbler::distro_path }
@@ -45,7 +45,18 @@ class kvmhost::config::cobbler {
   }
 
   $cobblersystems = hiera('cobblersystems', {})
-  $systemdefaults = { 'power_type' => 'virsh' }
+  $systemdefaults = {
+    'power_type' => 'virsh',
+    'gateway'    => '192.168.122.1',
+    'interfaces' => {
+      'eth0'       => {
+        'netmask'              => '255.255.255.0',
+        'ipv6_default_gateway' => "${kvmhost::ipv6}::10:1",
+        'virt_bridge'          => 'virbr0',
+      }
+    }
+  }
+
   if $cobblersystems {
     create_resources('cobblersystem', $cobblersystems, $systemdefaults)
   }
