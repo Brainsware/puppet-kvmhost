@@ -81,19 +81,11 @@ class kvmhost::install::cobbler {
     require => Class[::cobbler],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa':
-    ensure  => link,
-    target  => '/root/id_rsa',
-    require => [
-      Class[::cobbler],
-      File['/root/id_rsa'],
-    ]
+    source  => '/root/id_rsa',
+    require => File['/root/id_rsa'],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa.pub':
-    ensure  => link,
-    target  => '/root/id_rsa.pub',
-    require => [
-      Class[::cobbler],
-      File['/root/id_rsa.pub'],
-    ]
+    source  => '/root/id_rsa.pub',
+    require => File['/root/id_rsa.pub'],
   }
 }
