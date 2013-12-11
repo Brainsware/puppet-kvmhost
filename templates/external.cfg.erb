@@ -14,7 +14,7 @@ d-i netcfg/choose_interface select eth0
 d-i netcfg/get_hostname string $hostname
 d-i netcfg/get_domain string esat
 d-i netcfg/get_ipaddress string $interfaces['eth0']['ip_address']
-d-i netcfg/get_netmask string $interfaces['eth0']['netmask']
+d-i netcfg/get_netmask string 255.255.255.0
 d-i netcfg/get_gateway string 192.1681.122.1
 d-i netcfg/wireless_wep string
 d-i netcfg/confirm_static boolean true
@@ -135,7 +135,7 @@ d-i pkgsel/updatedb boolean true
 #set $eth1 = '\\n# device: eth1\\nauto  eth1\\niface eth1 inet static\\n    address %s\\n    netmask 255.255.255.255\\n    gateway %s\\n    pointopoint %s' % ($interfaces['eth1']['ip_address'], $gateway, $gateway)
 # Finally, create the internal network interface:
 # update the internal Interface to include IPv6 and IPv4
-#set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask   %s\\n' % ($interfaces['eth0']['ip_address'], $interfaces['eth0']['netmask'])
+#set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask   255.255.255.0\\n' % ($interfaces['eth0']['ip_address'])
 #set $eth0 += '\\niface eth0 inet6 static\\n    address %s\\n    netmask    112\\n' % ($interfaces['eth0']['ipv6_address'])
 #set $interfaces = $lo+$eth0+$eth1
 

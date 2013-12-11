@@ -48,12 +48,6 @@ class kvmhost::config::cobbler inherits kvmhost {
   $systemdefaults = {
     'power_type' => 'virsh',
     'gateway'    => '192.168.122.1',
-    'interfaces' => {
-      'eth0'       => {
-        'netmask'              => '255.255.255.0',
-        'ipv6_default_gateway' => "${kvmhost::ipv6}::10:1",
-      }
-    }
   }
 
   if $cobblersystems {
