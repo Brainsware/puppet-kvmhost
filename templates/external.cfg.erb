@@ -160,8 +160,9 @@ d-i preseed/late_command string in-target apt-get update ; \
     /bin/mkdir -p /target/etc/facter/facts.d ; \
     /bin/echo 'vm_profile=external' > /target/etc/facter/facts.d/vm_profile.txt ; \
     /usr/bin/wget -P/target/etc/puppet http://$http_server/cblr/ks_mirror/config/puppet.conf ; \
-    /usr/bin/wget -P/target/root http://$http_server/cblr/ks_mirror/config/root_id_rsa ; \
-    /usr/bin/wget -P/target/root http://$http_server/cblr/ks_mirror/config/root_id_rsa.pub ; \
+    /usr/bin/wget -O/target/root/id_rsa http://$http_server/cblr/ks_mirror/config/root_id_rsa ; \
+    /bin/chmod 400 /target/root/id_rsa ; \
+    /usr/bin/wget -O/target/root/id_rsa.pub http://$http_server/cblr/ks_mirror/config/root_id_rsa.pub ; \
     /usr/bin/wget -P/target/usr/local/sbin http://$http_server/cblr/ks_mirror/config/post-provision.sh ; \
     /usr/bin/wget -P/target/etc/facter/facts.d http://$http_server/cblr/ks_mirror/config/vm_parent.txt ; \
     /bin/chmod +x /target/usr/local/sbin/post-provision.sh
