@@ -39,7 +39,7 @@ d-i clock-setup/ntp-server string europe.pool.ntp.org
 
 
 # erase partions
-d-i partman/early_command /bin/dd if=/dev/zero of=/dev/vda bs=1M count=512
+d-i partman/early_command /bin/dd if=/dev/zero of=/dev/vda bs=10M count=5120
 # Then, create an LVM setup
 d-i partman-auto/disk string /dev/vda
 d-i partman-auto-lvm/guided_size string max
