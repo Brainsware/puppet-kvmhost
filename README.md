@@ -13,17 +13,6 @@ Installing
      include kvmhost
 ```
 
-## TODO
-
-* setup cobbler & libvirt
-* configure libvirt's 'pxe' and 'forward' network
-* add distros and profiles to cobbler
-* add two template *systems* (internal VM, externally reachable VM)
-* extend jsosic/cobbler to allow for "copying" from these systems, XOR
-* make *profile* templates so good, we don't need that.
-* make it possible to add *distro*s and *profile*s from Hiera?
-* in any case: Make it possible to add *VMs* from Hiera.
-
 ## Release process
 
 The version in Modulefile should be bumped according to [semver](http://semver.org/) *during development*, i.e.: The first commit after the release should already bump the version, as master at this point differs from the latest release.
