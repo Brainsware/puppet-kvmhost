@@ -10,7 +10,7 @@ apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
 # remove old kernel:
 dpkg -l | awk '/raring/{print $2}' | xargs apt-get purge -y
 
-while ! /opt/bw/bin/puppet agent -t --waitforcert 120 --debug ; do
+while ! /opt/bw/bin/puppet agent -t --waitforcert 30 --debug ; do
 	# run puppet as often as necessary before the host is setup
 	sleep 1
 done
