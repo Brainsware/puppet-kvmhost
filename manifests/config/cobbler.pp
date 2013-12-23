@@ -48,5 +48,8 @@ class kvmhost::config::cobbler inherits kvmhost {
 
   if $cobblersystems {
     create_resources('cobblersystem', $cobblersystems, $systemdefaults)
+
+    $names = delete_array ($cobblersystems, ['profile', 'virt_ram', 'virt_cpus', 'gateway'])
+    create_resources('kvmhost::config::dns', $names, {})
   }
 }
