@@ -53,3 +53,4 @@ class kvmhost::config::cobbler inherits kvmhost {
     create_resources('kvmhost::config::dns', $names, {})
   }
 }
+
