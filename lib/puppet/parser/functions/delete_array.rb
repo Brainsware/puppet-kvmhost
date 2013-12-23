@@ -5,7 +5,7 @@
 # takes an array as 
 
 module Puppet::Parser::Functions
-  newfunction(:delete, :type => :rvalue, :doc => <<-EOS
+  newfunction(:delete_array, :type => :rvalue, :doc => <<-EOS
 Deletes all instances of a given element from an array, substring from a
 string, or key from a hash.
 
