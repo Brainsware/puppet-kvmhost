@@ -12,17 +12,17 @@ module Puppet::Parser::Functions
 
     if (arguments.size != 1) then
       raise(Puppet::ParseError, "cobblers2unbound(): Wrong number of arguments "+
-        "given #{arguments.size} for 1.")
+            "given #{arguments.size} for 1.")
     end
 
     collection = arguments[0]
-            
+
     raise(TypeError, "cobblers2unbound(): first argument must be a Hash. " +
-      "Given an argument of class #{collection.class}.") unless collection.is_a? Hash
+          "Given an argument of class #{collection.class}.") unless collection.is_a? Hash
 
-		collection.each do |item|
+    collection.each do |item|
 
-		end
+    end
     collection
   end
 end
