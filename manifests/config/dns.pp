@@ -1,8 +1,8 @@
 # exports our systems' DNS config
 define kvmhost::config::dns (
-  $name,
   $ip,
   $ipv6,
+  $name = $title,
 ){
 
   @@unbound::record { "${name}-ipv4":
