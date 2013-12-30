@@ -2,16 +2,17 @@
 define kvmhost::config::dns (
   $ip,
   $ipv6,
-  $name = $title,
+  $dns  = $title,
 ){
 
-  @@unbound::record { "${name}-ipv4":
-    name    => $name,
+
+  @@unbound::record { "${dns}-ipv4":
+    name    => $dns,
     content => $ip,
     reverse => true,
   }
-  @@unbound::record { "${name}-ipv6":
-    name    => $name,
+  @@unbound::record { "${dns}-ipv6":
+    name    => $dns,
     type    => 'AAAA',
     content => $ipv6,
     reverse => true,
