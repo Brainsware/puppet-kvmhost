@@ -1,17 +1,17 @@
 # exports our systems' DNS config
 define kvmhost::config::dns (
-  $hostname   = $title,
+  $name,
   $ip,
   $ipv6,
 ){
 
-  @@unbound::record { "${::fqdn}-ipv4":
-    name    => $::fqdn,
+  @@unbound::record { "${name}-ipv4":
+    name    => $name,
     content => $ip,
     reverse => true,
   }
-  @@unbound::record { "${::fqdn}-ipv6":
-    name    => $::fqdn,
+  @@unbound::record { "${name}-ipv6":
+    name    => $name,
     type    => 'AAAA',
     content => $ipv6,
     reverse => true,
