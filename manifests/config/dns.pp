@@ -6,12 +6,14 @@ define kvmhost::config::dns (
 ){
 
 
-  @@unbound::record { $dns:
+  @@unbound::record { "${dns}-ipv4":
+    entry   => $dns,
+    type    => 'A',
     content => $ip,
     reverse => true,
   }
   @@unbound::record { "${dns}-ipv6":
-    name    => $dns,
+    entry   => $dns,
     type    => 'AAAA',
     content => $ipv6,
     reverse => true,
