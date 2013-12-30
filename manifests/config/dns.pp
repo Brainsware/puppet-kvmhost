@@ -6,8 +6,7 @@ define kvmhost::config::dns (
 ){
 
 
-  @@unbound::record { "${dns}-ipv4":
-    name    => $dns,
+  @@unbound::record { $dns:
     content => $ip,
     reverse => true,
   }
