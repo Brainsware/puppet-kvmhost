@@ -7,7 +7,7 @@ define kvmhost::config::dns (
 
   @@unbound::record { "${::fqdn}-ipv4":
     name    => $::fqdn,
-    content => $ip
+    content => $ip,
     reverse => true,
   }
   @@unbound::record { "${::fqdn}-ipv6":
