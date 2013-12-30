@@ -18,7 +18,7 @@ module Puppet::Parser::Functions
     input = arguments[0]
     output = {}
 
-    get_ip = { |data, key| data['interfaces']['eth0'][key] }
+    get_ip = lamda { |data, key| data['interfaces']['eth0'][key] }
 
     raise(TypeError, "cobblersystems_to_unbound(): first argument must be a Hash. " +
           "Given an argument of class #{collection.class}.") unless collection.is_a? Hash
