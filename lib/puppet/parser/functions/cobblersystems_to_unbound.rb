@@ -27,8 +27,8 @@ module Puppet::Parser::Functions
       hostname = data['hostname'] || host
 
       output[hostname] = {
-        'ip'   => get_ip[data, 'ip_address'],
-        'ipv6' => get_ip[data, 'ipv6_address']
+        'ip'   => get_ip.call(data, 'ip_address'),
+        'ipv6' => get_ip.call(data, 'ipv6_address')
       }
     end
 
