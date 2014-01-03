@@ -13,6 +13,13 @@ Installing
      include kvmhost
 ```
 
+## TODO
+
+* we need to document exactly how to do the setup. i.e.: What values should be put into hiera to be able install a distribution.
+* the preseed files [external.cfg](./files/external.cfg) and [internal.cfg](./files/internal.cfg) are too specific to Brainsware. There must be an easy way to replace them.
+* our upstreams dependencies ([thias/libvirt](https://github.com/thias/puppet-libvirt) [jsosic/cobbler](https://bitbucket.org/jsosic/puppet-cobbler)) and have not yet accepted all of the features that this module depends on
+* the code needs a little clean up (i.e.: what's the difference between cobbler::install.. and cobbler::config)
+
 ## Release process
 
 The version in Modulefile should be bumped according to [semver](http://semver.org/) *during development*, i.e.: The first commit after the release should already bump the version, as master at this point differs from the latest release.
@@ -61,3 +68,4 @@ Support
 -------
 
 Please log tickets and issues at our [Project's issue tracker](https://github.com/Brainsware/puppet-kvmhost/issues)
+

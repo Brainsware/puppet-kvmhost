@@ -22,6 +22,6 @@ description 'manage a kvmhost setup, configuration and provisioning of VMs'
 project_page 'https://github.com/Brainsware.org/puppet-kvmhost'
 
 dependency 'jsosic/cobbler', '>= 1.2.1'
-dependency 'thias/libvirt', '>= 0.1.0'
-dependency 'puppetlabs/apache', '>= 0.9.0'
+dependency 'thias/libvirt', '>= 0.2.3'
+dependency 'puppetlabs/apache', '>= 0.10.0'
 dependency 'puppetlabs/stdlib', '>= 4.1.0'
