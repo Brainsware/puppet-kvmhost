@@ -20,15 +20,16 @@
 # Copyright 2013 Brainsware
 #
 class kvmhost (
-  $ip           = undef,
-  $broadcast    = undef,
-  $netmask      = undef,
-  $gateway      = undef,
-  $network      = undef,
-  $bridge       = 'virbr1',
-  $interface    = 'eth0',
-  $ipv6         = undef,
-  $ipv6_gateway = undef,
+  $ip               = undef,
+  $broadcast        = undef,
+  $netmask          = undef,
+  $gateway          = undef,
+  $network          = undef,
+  $bridge           = 'virbr1',
+  $interface        = 'eth0',
+  $ipv6             = undef,
+  $ipv6_gateway     = undef,
+  $defaultrootpw    = '',
   $root_key_private = undef,
   $root_key_private = undef,
 ){
