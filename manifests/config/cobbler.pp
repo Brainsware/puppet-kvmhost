@@ -54,7 +54,7 @@ class kvmhost::config::cobbler inherits kvmhost {
 
   }
   @@unbound::record { $::fqdn:
-    ipv6    => "${kvmhost::ipv6}::10:1",
+    content => "${kvmhost::ipv6}::10:1",
     reverse => true,
   }
 }
