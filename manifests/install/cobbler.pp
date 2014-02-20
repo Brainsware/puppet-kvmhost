@@ -94,11 +94,11 @@ class kvmhost::install::cobbler inherits kvmhost{
     ],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa':
-    source  => '/root/id_rsa',
+    source  => '/root/.ssh/id_rsa',
     require => File['/root/.ssh/id_rsa'],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa.pub':
-    source  => '/root/id_rsa.pub',
+    source  => '/root/.ssh/id_rsa.pub',
     require => File['/root/.ssh/id_rsa.pub'],
   }
 }
