@@ -72,20 +72,33 @@ class kvmhost::install::cobbler inherits kvmhost{
     target  => '/etc/resolv.conf',
     require => Class[::cobbler],
   }
-  file { '/root/id_rsa':
-    content  => $::kvmhost::root_key_private,
-    require => Class[::cobbler],
+
+  file { '/root/.ssh':
+    ensure => directory,
+    mode   => '0700',
+    owner  => 'root',
+    group  => 'root',
   }
-  file { '/root/id_rsa.pub':
+  file { '/root/.ssh/id_rsa':
+    content  => $::kvmhost::root_key_private,
+    require => [
+      Class[::cobbler],
+      File['/root/.ssh'],
+    ],
+  }
+  file { '/root/.ssh/id_rsa.pub':
     content  => $::kvmhost::root_key_public,
-    require => Class[::cobbler],
+    require => [
+      Class[::cobbler],
+      File['/root/.ssh'],
+    ],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa':
     source  => '/root/id_rsa',
-    require => File['/root/id_rsa'],
+    require => File['/root/.ssh/id_rsa'],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa.pub':
     source  => '/root/id_rsa.pub',
-    require => File['/root/id_rsa.pub'],
+    require => File['/root/.ssh/id_rsa.pub'],
   }
 }
