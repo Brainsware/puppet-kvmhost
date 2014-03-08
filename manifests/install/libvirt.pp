@@ -19,7 +19,7 @@
 #
 # === Parameters
 #
-# === Variables
+# Inherits from kvmhost, so, the same as kvmhost.
 #
 # === Examples
 #

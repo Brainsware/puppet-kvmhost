@@ -94,14 +94,14 @@ class kvmhost::install::cobbler inherits kvmhost{
     group  => 'root',
   }
   file { '/root/.ssh/id_rsa':
-    content  => $::kvmhost::root_key_private,
+    content => $::kvmhost::root_key_private,
     require => [
       Class[::cobbler],
       File['/root/.ssh'],
     ],
   }
   file { '/root/.ssh/id_rsa.pub':
-    content  => $::kvmhost::root_key_public,
+    content => $::kvmhost::root_key_public,
     require => [
       Class[::cobbler],
       File['/root/.ssh'],

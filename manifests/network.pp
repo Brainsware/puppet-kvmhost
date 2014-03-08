@@ -36,12 +36,9 @@ class kvmhost::network inherits kvmhost {
     notify  => Exec[networking::restart]
   }
 
-  # call /etc/init.d/restart
   exec { 'networking::restart':
     refreshonly => true,
     provider    => 'posix',
-    cwd         => '/',
-    path        => '/bin:/usr/bin',
     command     => '/etc/init.d/networking restart',
   }
 

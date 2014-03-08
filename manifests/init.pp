@@ -19,8 +19,6 @@
 #
 # === Parameters
 #
-# === Variables
-#
 # === Examples
 #
 #  include 'kvmhost'

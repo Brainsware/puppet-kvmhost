@@ -19,7 +19,6 @@ define kvmhost::config::dns (
   $dns  = $title,
 ){
 
-
   @@unbound::record { "${dns}-ipv4":
     entry   => $dns,
     type    => 'A',
