@@ -30,8 +30,9 @@
 #
 class kvmhost::install {
 
-  anchor { 'start-install': } ->
-  class { 'kvmhost::install::libvirt': } ->
-  class { 'kvmhost::install::cobbler': } ->
-  anchor { 'end-install': }
+  contain 'kvmhost::install::libvirt':
+  contain 'kvmhost::install::cobbler':
+
+  Class['kvmhost::install::libvirt'] ->
+  Class['kvmhost::install::cobbler']
 }

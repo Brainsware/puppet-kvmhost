@@ -78,10 +78,11 @@ class kvmhost (
     tag  => 'trusted-ipv6'
   }
 
+  contain 'kvmhost::network'
+  contain 'kvmhost::install'
+  contain 'kvmhost::config'
 
-  anchor { 'start-init': } ->
-  class { 'kvmhost::network': } ->
-  class { 'kvmhost::install': } ->
-  class { 'kvmhost::config': } ->
-  anchor { 'end-init': }
+  Class['kvmhost::network'] ->
+  Class['kvmhost::install'] ->
+  Class['kvmhost::config']
 }
