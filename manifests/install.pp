@@ -30,8 +30,8 @@
 #
 class kvmhost::install {
 
-  contain 'kvmhost::install::libvirt':
-  contain 'kvmhost::install::cobbler':
+  contain 'kvmhost::install::libvirt'
+  contain 'kvmhost::install::cobbler'
 
   Class['kvmhost::install::libvirt'] ->
   Class['kvmhost::install::cobbler']
