@@ -130,12 +130,42 @@ d-i apt-setup/local3/source boolean false
 d-i apt-setup/local3/key string \
     http://pkg.esotericsystems.at/pubkey.gpg
 
+# Add puppetlabs' repo
+d-i apt-setup/local4/repository string \
+    http://apt.puppetlabs.com precise main dependencies
+d-i apt-setup/local4/comment Puppetlabs' APT repository
+d-i apt-setup/local4/source boolean false
+d-i apt-setup/local4/key string \
+    http://apt.puppetlabs.com/pubkey.gpg
+
+# Add MariaDB repo
+d-i apt-setup/local5/repository string \
+    http://tweedo.com/mirror/mariadb/repo/10.0/ubuntu precise main
+d-i apt-setup/local5/comment MariaDB 10.0 repo
+d-i apt-setup/local5/source boolean false
+d-i apt-setup/local5/key string  \
+    http://keyserver.ubuntu.com:11371/pks/lookup?search=0xCBCB082A1BB943DB&op=get
+
+# Brightbox PPA for a current Ruby version
+d-i apt-setup/local6/repository string \
+    deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu precise main
+d-i apt-setup/local6/comment Brightbox' Ruby-ng Repo
+d-i apt-setup/local6/source boolean false
+d-i apt-setup/local6/key string \
+    http://keyserver.ubuntu.com:11371/pks/lookup?search=0x80F70E11F0F0D5F10CB20E62F5DA5F09C3173AA6&op=get
+
+# Install latest version of Git
+d-i apt-setup/local6/repository string \
+    deb http://ppa.launchpad.net/git-core/ppa/ubuntu precise main
+d-i apt-setup/local6/comment git-core team ppa
+d-i apt-setup/local6/source boolean false
+d-i apt-setup/local6/key string \
+    http://keyserver.ubuntu.com:11371/pks/lookup?search=0xE1DD270288B4E6030699E45FA1715D88E1DF1F24&op=get
 
 tasksel tasksel/first multiselect standard
 d-i pkgsel/include string openssh-server build-essential git lsb-release chrony vim-nox acpid python-software-properties \
                           byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-lts-saucy virt-what \
-                          puppet rubygem-facter rubygem-hiera rubygem-json-pure rubygem-ruby-shadow rubygem-ruby-augeas \
-                          rubygem-puppet-lint libaugeas0 augeas-lenses augeas-tools openjdk-7-jre-headless ubuntu-extras-keyring
+                          puppet facter hiera puppet-lint libaugeas0 augeas-lenses augeas-tools libaugeas-ruby1.9.1 openjdk-7-jre-headless ubuntu-extras-keyring
 d-i pkgsel/language-packs multiselect en
 d-i pkgsel/upgrade select full-upgrade
 d-i pkgsel/install-language-support boolean false
