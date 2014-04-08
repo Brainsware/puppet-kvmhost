@@ -18,6 +18,8 @@
 apt-get purge --force-yes -f resolvconf
 rm -f /etc/resolv.conf
 wget -P/etc http://192.168.122.1/cblr/ks_mirror/config/resolv.conf
+rm -f /etc/puppet/puppet.conf
+wget -P/etc http://192.168.122.1/cblr/ks_mirror/config/puppet.conf
 
 apt-get update
 apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
@@ -25,7 +27,7 @@ apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
 # remove old kernel:
 dpkg -l | awk '/raring/{print $2}' | xargs apt-get purge -y
 
-while ! /opt/bw/bin/puppet agent -t --waitforcert 30 --debug ; do
+while ! /usr/bin/puppet agent -t --waitforcert 30 --debug ; do
 	# run puppet as often as necessary before the host is setup
 	sleep 1
 done
