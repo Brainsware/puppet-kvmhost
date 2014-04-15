@@ -48,7 +48,6 @@ class kvmhost::config::cobbler inherits kvmhost {
     'virt_type'      => 'kvm',
     'virt_auto_boot' => true,
     'repos'          => [],
-    'search'         => [  'esat.' ],
   }
   if $cobblerprofiles {
     create_resources('cobblerprofile', $cobblerprofiles, $profiledefaults)
