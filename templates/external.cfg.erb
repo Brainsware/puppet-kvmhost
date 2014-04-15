@@ -124,7 +124,7 @@ d-i apt-setup/local2/key string \
 
 # Add our own repo!
 d-i apt-setup/local3/repository string \
-    http://pkg.esotericsystems.at precise main <% if @environment != 'production' %>testing<% end %>
+    http://pkg.esat precise main <% if @environment != 'production' %>testing<% end %>
 d-i apt-setup/local3/comment Brainsware internal APT repo
 d-i apt-setup/local3/source boolean false
 d-i apt-setup/local3/key string \
