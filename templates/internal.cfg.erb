@@ -44,7 +44,7 @@ d-i mirror/http/mirror select mirror.hetzner.de
 d-i mirror/http/hostname string mirror.hetzner.de
 d-i mirror/http/directory string /ubuntu/packages
 
-d-i mirror/suite string precise
+d-i mirror/suite string $breed
 
 d-i clock-setup/utc boolean true
 d-i time/zone string UTC
@@ -102,7 +102,7 @@ d-i apt-setup/backports boolean true
 
 # Add git-core ppa:
 d-i apt-setup/local0/repository string \
-    http://ppa.launchpad.net/git-core/ppa/ubuntu precise main
+    http://ppa.launchpad.net/git-core/ppa/ubuntu $breed main
 d-i apt-setup/local0/comment git-core ppa
 d-i apt-setup/local0/source boolean false
 d-i apt-setup/local0/key string \
@@ -110,7 +110,7 @@ d-i apt-setup/local0/key string \
 
 # Add augeas ppa:
 d-i apt-setup/local1/repository string \
-    deb http://ppa.launchpad.net/raphink/augeas/ubuntu precise main
+    deb http://ppa.launchpad.net/raphink/augeas/ubuntu $breed main
 d-i apt-setup/local1/comment Raphink's Augeas ppa
 d-i apt-setup/local1/source boolean false
 d-i apt-setup/local1/key string \
@@ -118,7 +118,7 @@ d-i apt-setup/local1/key string \
 
 # PostgreSQL \$latest apt repo
 d-i apt-setup/local2/repository string \
-    deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main
+    deb http://apt.postgresql.org/pub/repos/apt/ $breed-pgdg main
 d-i apt-setup/local2/comment PostgreSQL's Apt Repo
 d-i apt-setup/local2/source boolean false
 d-i apt-setup/local2/key string \
@@ -126,7 +126,7 @@ d-i apt-setup/local2/key string \
 
 # Add our own repo!
 d-i apt-setup/local3/repository string \
-    http://pkg.esat precise main <% if @environment != 'production' %>testing<% end %>
+    http://pkg.esat $breed main <% if @environment != 'production' %>testing<% end %>
 d-i apt-setup/local3/comment Brainsware internal APT repo
 d-i apt-setup/local3/source boolean false
 d-i apt-setup/local3/key string \
@@ -134,7 +134,7 @@ d-i apt-setup/local3/key string \
 
 # Add puppetlabs' repo
 d-i apt-setup/local4/repository string \
-    http://apt.puppetlabs.com precise main dependencies
+    http://apt.puppetlabs.com $breed main dependencies
 d-i apt-setup/local4/comment Puppetlabs' APT repository
 d-i apt-setup/local4/source boolean false
 d-i apt-setup/local4/key string \
@@ -142,7 +142,7 @@ d-i apt-setup/local4/key string \
 
 # Add MariaDB repo
 d-i apt-setup/local5/repository string \
-    http://tweedo.com/mirror/mariadb/repo/10.0/ubuntu precise main
+    http://tweedo.com/mirror/mariadb/repo/10.0/ubuntu $breed main
 d-i apt-setup/local5/comment MariaDB 10.0 repo
 d-i apt-setup/local5/source boolean false
 d-i apt-setup/local5/key string  \
@@ -150,7 +150,7 @@ d-i apt-setup/local5/key string  \
 
 # Brightbox PPA for a current Ruby version
 d-i apt-setup/local6/repository string \
-    deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu precise main
+    deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu $breed main
 d-i apt-setup/local6/comment Brightbox' Ruby-ng Repo
 d-i apt-setup/local6/source boolean false
 d-i apt-setup/local6/key string \
