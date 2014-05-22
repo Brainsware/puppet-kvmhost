@@ -49,6 +49,8 @@ class kvmhost::install::cobbler inherits kvmhost{
     ]:
   }
 
+  include '::cobbler::dependency'
+
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
     service_name     => 'cobblerd',
@@ -58,7 +60,8 @@ class kvmhost::install::cobbler inherits kvmhost{
     next_server_ip   => '192.168.122.1',
     allow_access     => '192.168.122.1 127.0.0.1',
     defaultrootpw    => $::kvmhost::defaultrootpw,
-    dependency_class => '::cobbler::dependency',
+    dependency_class => undef,
+    require          => Class[::cobbler::dependency],
   }
 
   file { '/srv/www/cobbler/ks_mirror/config/internal.cfg':
