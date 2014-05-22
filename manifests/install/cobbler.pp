@@ -60,7 +60,7 @@ class kvmhost::install::cobbler inherits kvmhost{
     next_server_ip   => '192.168.122.1',
     allow_access     => '192.168.122.1 127.0.0.1',
     defaultrootpw    => $::kvmhost::defaultrootpw,
-    dependency_class => undef,
+    dependency_class => false,
     require          => Class[::cobbler::dependency],
   }
 
