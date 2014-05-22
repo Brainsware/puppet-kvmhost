@@ -51,13 +51,14 @@ class kvmhost::install::cobbler inherits kvmhost{
 
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
-    service_name   => 'cobblerd',
-    webroot        => '/srv/www/cobbler',
-    distro_path    => '/srv/www/cobbler/ks_mirror',
-    server_ip      => '192.168.122.1',
-    next_server_ip => '192.168.122.1',
-    allow_access   => '192.168.122.1 127.0.0.1',
-    defaultrootpw  => $::kvmhost::defaultrootpw,
+    service_name     => 'cobblerd',
+    webroot          => '/srv/www/cobbler',
+    distro_path      => '/srv/www/cobbler/ks_mirror',
+    server_ip        => '192.168.122.1',
+    next_server_ip   => '192.168.122.1',
+    allow_access     => '192.168.122.1 127.0.0.1',
+    defaultrootpw    => $::kvmhost::defaultrootpw,
+    dependency_class => '::cobbler::dependency',
   }
 
   file { '/srv/www/cobbler/ks_mirror/config/internal.cfg':
