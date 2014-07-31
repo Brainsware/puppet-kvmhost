@@ -32,11 +32,11 @@ class kvmhost::install {
 
   contain 'kvmhost::install::libvirt'
   contain 'kvmhost::install::cobbler'
-  contain '::repos::config::virtualhost'
+  contain '::repos::config::virtualbox'
 
   Class['kvmhost::install::libvirt'] ->
   Class['kvmhost::install::cobbler']
 
-  Class['::repos::config::virtualhost'] ->
+  Class['::repos::config::virtualbox'] ->
   package { 'virtualbox-4.3': }
 }
