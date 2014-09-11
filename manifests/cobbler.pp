@@ -12,17 +12,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# == Class: kvmhost::install::cobbler
+# == Class: kvmhost::cobbler
 #
-# This class is the global hook for installation
-#
-# === Parameters
-#
-# Inherits from kvmhost, so the same as kvmhost.
-#
-# === Examples
-#
-#  include 'kvmhost::install::cobbler'
+# This is the private class for installing / configuring cobbler
 #
 # === Authors
 #
@@ -32,36 +24,19 @@
 #
 # Copyright 2013 Brainsware
 #
-class kvmhost::install::cobbler inherits kvmhost{
+class kvmhost::cobbler {
 
   # this is needed for powerr management!
   package { 'fence-agents':
     ensure => latest,
   }
 
-  # Managing the apache installation on this server
-  # now happens in hiera's kvmhost role!
-
-  # However, we secure it here by only listening to private interfaces:
-  apache::listen {[
-      '192.168.122.1:80',
-      '127.0.0.1:80',
-    ]:
-  }
-
-  include '::cobbler::dependency'
-
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
     service_name     => 'cobblerd',
     webroot          => '/srv/www/cobbler',
     distro_path      => '/srv/www/cobbler/ks_mirror',
-    server_ip        => '192.168.122.1',
-    next_server_ip   => '192.168.122.1',
-    allow_access     => '192.168.122.1 127.0.0.1',
     defaultrootpw    => $::kvmhost::defaultrootpw,
-    dependency_class => false,
-    require          => Class[::cobbler::dependency],
   }
 
   file { '/srv/www/cobbler/ks_mirror/config/internal.cfg':
@@ -119,4 +94,16 @@ class kvmhost::install::cobbler inherits kvmhost{
     source  => '/root/.ssh/id_rsa.pub',
     require => File['/root/.ssh/id_rsa.pub'],
   }
+
+  $cobblerdistros  = hiera('cobblerdistros',         {})
+  $distro_defaults = hiera('cobblerdistro_defaults', {})
+  create_resources('cobblerdistro', $cobblerdistros, $distro_defaults)
+
+  $cobblerprofiles  = hiera('cobblerprofiles',         {})
+  $profile_defaults = hiera('cobblerprofile_defaults', {})
+  create_resources('cobblerprofile', $cobblerprofiles, $profile_defaults)
+
+  $cobblersystems  = hiera('cobblersystems',         {})
+  $system_defaults = hiera('cobblersystem_defaults', {})
+  create_resources('cobblersystem', $cobblersystems, $system_defaults)
 }

@@ -37,7 +37,7 @@ class kvmhost (
   $netmask          = undef,
   $gateway          = undef,
   $network          = undef,
-  $bridge           = 'virbr1',
+  $bridge           = 'virbr0',
   $interface        = 'eth0',
   $ipv6             = undef,
   $ipv6_gateway     = undef,
@@ -65,17 +65,6 @@ class kvmhost (
   }
   unless is_ip_address($ipv6_gateway) {
     fail("${module_name}: IPv6 Gateway must be a valid IPv6 address: ${ipv6_gateway}")
-  }
-
-  # Fill in vm_profile fact.
-  file { '/etc/facter/facts.d/vm_profile.txt':
-    content => 'vm_profile=kvmhost',
-  }
-
-  # export *our* network
-  @@ufw::allow { "allow-from-trusted-private-${kvmhost::ipv6}::":
-    from => "${kvmhost::ipv6}::/64",
-    tag  => 'trusted-ipv6'
   }
 
   contain 'kvmhost::network'
