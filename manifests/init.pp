@@ -35,6 +35,7 @@ class kvmhost (
   $defaultrootpw    = '',
   $root_key_private = undef,
   $root_key_public  = undef,
+  $cobbler_destdir  = undef,
 ){
   contain '::kvmhost::libvirt'
   contain '::kvmhost::cobbler'
