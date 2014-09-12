@@ -35,6 +35,8 @@ class kvmhost::cobbler {
     ensure => directory,
   }
 
+  File[$::kvmhost::cobbler_destdir] -> Cobblerdistro <| |>
+
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
     service_name     => 'cobblerd',
