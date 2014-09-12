@@ -31,17 +31,11 @@ class kvmhost::cobbler {
     ensure => latest,
   }
 
-  file { $::kvmhost::cobbler_destdir:
-    ensure => directory,
-  }
-
-  File[$::kvmhost::cobbler_destdir] -> Cobblerdistro <| |>
-
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
     service_name     => 'cobblerd',
     webroot          => '/srv/www/cobbler',
-    distro_path      => '/srv/www/cobbler/ks_mirror',
+    distro_path      => $::kvmhost::cobbler_destdir,
     defaultrootpw    => $::kvmhost::defaultrootpw,
   }
 
