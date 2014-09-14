@@ -103,4 +103,6 @@ class kvmhost::cobbler {
   $cobblersystems  = hiera('cobblersystems',         {})
   $system_defaults = hiera('cobblersystem_defaults', {})
   create_resources('cobblersystem', $cobblersystems, $system_defaults)
+
+  Class[cobbler] -> Cobblerdistro <| |> -> Cobblerprofile <| |> -> Cobblersystem <| |>
 }
