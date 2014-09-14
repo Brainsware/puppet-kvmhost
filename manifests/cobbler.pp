@@ -36,12 +36,8 @@ class kvmhost::cobbler {
     defaultrootpw => $::kvmhost::defaultrootpw,
   }
 
-  file { '/srv/www/cobbler/ks_mirror/config/internal.cfg':
+  file { '/distro/kickstarts/internal.cfg':
     content => template('kvmhost/internal.cfg.erb'),
-    require => Class[::cobbler],
-  }
-  file { '/srv/www/cobbler/ks_mirror/config/external.cfg':
-    content => template('kvmhost/external.cfg.erb'),
     require => Class[::cobbler],
   }
   file { '/srv/www/cobbler/ks_mirror/config/puppet.conf':
