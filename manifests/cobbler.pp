@@ -36,7 +36,7 @@ class kvmhost::cobbler {
     defaultrootpw => $::kvmhost::defaultrootpw,
   }
 
-  file { '/distro/kickstarts/internal.cfg':
+  file { '/var/lib/cobbler/kickstarts/internal.cfg':
     content => template('kvmhost/internal.cfg.erb'),
     require => Class[::cobbler],
   }
