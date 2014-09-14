@@ -33,10 +33,7 @@ class kvmhost::cobbler {
 
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
-    service_name     => 'cobblerd',
-    webroot          => '/srv/www/cobbler',
-    distro_path      => $::kvmhost::cobbler_destdir,
-    defaultrootpw    => $::kvmhost::defaultrootpw,
+    defaultrootpw => $::kvmhost::defaultrootpw,
   }
 
   file { '/srv/www/cobbler/ks_mirror/config/internal.cfg':
