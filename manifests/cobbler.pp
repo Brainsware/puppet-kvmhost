@@ -30,6 +30,10 @@ class kvmhost::cobbler {
   package { 'fence-agents':
     ensure => latest,
   }
+  # this is needed for dhcp:
+  package { 'dnsmasq':
+    ensure => latest,
+  }
 
   # With those basics in place, we can get started with cobbler:
   class { '::cobbler':
