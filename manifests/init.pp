@@ -15,7 +15,7 @@
 # == Class: kvmhost
 #
 # This class is the global hook for installation and configuration of a
-# kvmhost. It installs and configures libvirt & installs and configures cobbler.
+# kvmhost. It installs and configures installs and configures cobbler.
 #
 # === Parameters
 #
@@ -36,9 +36,5 @@ class kvmhost (
   $root_key_private = undef,
   $root_key_public  = undef,
 ){
-  contain '::kvmhost::libvirt'
   contain '::kvmhost::cobbler'
-
-  Class['::kvmhost::libvirt'] ->
-  Class['::kvmhost::cobbler']
 }
