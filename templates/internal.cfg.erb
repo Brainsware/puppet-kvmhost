@@ -29,9 +29,9 @@ d-i netcfg/disable_autoconfig boolean true
 d-i netcfg/choose_interface select auto
 d-i netcfg/get_hostname string $hostname
 d-i netcfg/get_domain string esat
-d-i netcfg/get_ipaddress string $interfaces['eth0']['ip_address']
-d-i netcfg/get_netmask string 255.255.255.0
-d-i netcfg/get_gateway string $gateway
+d-i netcfg/get_ipaddress string $interfaces['eth0']['ipv6_address']
+d-i netcfg/get_netmask string 64
+d-i netcfg/get_gateway string $interfaces['eth0']['ipv6_default_gateway']
 d-i netcfg/wireless_wep string
 d-i netcfg/confirm_static boolean true
 
