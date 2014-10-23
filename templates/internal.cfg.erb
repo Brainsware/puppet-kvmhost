@@ -123,7 +123,7 @@ d-i apt-setup/local1/key string \
 
 tasksel tasksel/first multiselect standard
 d-i pkgsel/include string openssh-server build-essential git lsb-release ntp vim-nox acpid software-properties-common \
-                          byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-generic-lts-trusty virt-what \
+                          byobu tmux curl zsh exuberant-ctags make htop sysstat virt-what \
                           puppet facter hiera puppet-lint openjdk-7-jre-headless ubuntu-extras-keyring
 d-i pkgsel/language-packs multiselect en
 d-i pkgsel/upgrade select full-upgrade
