@@ -24,7 +24,11 @@ d-i keyboard-configuration/modelcode string pc105
 d-i console-keymaps-at/keymap string en-latin1-nodeadkeys
 
 #set $hostname = $hostname or $system_name
+#set $gateway6 = $interfaces['eth0']['ipv6_default_gateway']
 
+d-i preseed/early_command string ip route replace default via $gateway6 dev eth0
+
+d-i netcfg/dhcp_timeout string 10
 d-i netcfg/disable_autoconfig boolean true
 d-i netcfg/choose_interface select auto
 d-i netcfg/get_hostname string $hostname
