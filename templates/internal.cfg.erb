@@ -48,7 +48,7 @@ d-i mirror/http/mirror select mirror.hetzner.de
 d-i mirror/http/hostname string mirror.hetzner.de
 d-i mirror/http/directory string /ubuntu/packages
 
-d-i mirror/suite string $breed
+d-i mirror/suite string $os_version
 
 d-i clock-setup/utc boolean true
 d-i time/zone string UTC
@@ -106,7 +106,7 @@ d-i apt-setup/backports boolean true
 
 # Add our own repo!
 d-i apt-setup/local3/repository string \
-    http://pkg.esat $breed main <% if @environment != 'production' %>testing<% end %>
+    http://pkg.esat $os_version main <% if @environment != 'production' %>testing<% end %>
 d-i apt-setup/local3/comment Brainsware internal APT repo
 d-i apt-setup/local3/source boolean false
 d-i apt-setup/local3/key string \
@@ -114,7 +114,7 @@ d-i apt-setup/local3/key string \
 
 # Add puppetlabs' repo
 d-i apt-setup/local4/repository string \
-    http://apt.puppetlabs.com $breed main dependencies
+    http://apt.puppetlabs.com $os_version main dependencies
 d-i apt-setup/local4/comment Puppetlabs' APT repository
 d-i apt-setup/local4/source boolean false
 d-i apt-setup/local4/key string \
