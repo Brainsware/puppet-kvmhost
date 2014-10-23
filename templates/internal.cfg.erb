@@ -135,14 +135,11 @@ d-i pkgsel/updatedb boolean true
 
 #set $lo = '# Loopback device:\\nauto lo\\niface lo inet loopback\\n'
 # next, the update the primary (internal) interface to include IPv4 and IPv6
-#set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet static\\n    address %s\\n    netmask 255.255.255\\n    gateway %s\\n' % ($interfaces['eth0']['ip_address'], $gateway)
-#set $eth0 += '\\niface eth0 inet6 static\\n    address %s\\n    netmask    112\\n' % ($interfaces['eth0']['ipv6_address'])
+#set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet6 static\\n    address %s\\n    netmask 64\\n    gateway %s\\n' % ($interfaces['eth0']['ipv6_address'], $gateway6)
 #set $interfaces = $lo+$eth0
 
 # extract host from fqdn:
 #set $host = $hostname.split('.')[0]
-
-#set $path = 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"'
 
 d-i preseed/late_command string \
     in-target apt-get --yes purge linux-image-extra-3.13.0-24-generic;\
@@ -158,8 +155,8 @@ d-i preseed/late_command string \
     /bin/echo -e '$host' > /target/etc/hostname ; \
     /bin/rm /target/etc/resolvconf/resolv.conf.d/base ; \
     /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.conf ; \
+    /bin/sed -r -i -e '/nameserver [0-9]+\./d' /target/etc/resolvconf/resolv.conf.d/base ; \
     /bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
-    /bin/echo -e '$path' > /target/etc/environment ; \
     /bin/mkdir -p /target/etc/puppet ; \
     /bin/mkdir -p /target/etc/facter/facts.d ; \
     /bin/mkdir -p /target/root/.ssh ; \
@@ -169,7 +166,8 @@ d-i preseed/late_command string \
     /usr/bin/wget -O/target/root/.ssh/id_rsa.pub http://$http_server/cblr/ks_mirror/config/root_id_rsa.pub ; \
     /usr/bin/wget -P/target/usr/local/sbin http://$http_server/cblr/ks_mirror/config/post-provision.sh ; \
     /usr/bin/wget -P/target/etc/facter/facts.d http://$http_server/cblr/ks_mirror/config/vm_parent.txt ; \
-    /bin/chmod +x /target/usr/local/sbin/post-provision.sh
+    /bin/chmod +x /target/usr/local/sbin/post-provision.sh ; \
+    killall.sh ; netcfg
 
 # Verbose output and no boot splash screen.
 d-i	debian-installer/quiet	boolean false
