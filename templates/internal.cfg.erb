@@ -126,7 +126,7 @@ d-i pkgsel/include string openssh-server build-essential git lsb-release ntp vim
                           byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-generic-lts-trusty virt-what \
                           puppet facter hiera puppet-lint openjdk-7-jre-headless ubuntu-extras-keyring
 d-i pkgsel/language-packs multiselect en
-d-i pkgsel/upgrade select full-upgrade
+#d-i pkgsel/upgrade select full-upgrade
 d-i pkgsel/install-language-support boolean false
 d-i pkgsel/update-policy select unattended-upgrades
 d-i pkgsel/updatedb boolean true
@@ -144,8 +144,12 @@ d-i pkgsel/updatedb boolean true
 
 #set $path = 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"'
 
-# really, really dist-upgrade
-d-i preseed/late_command string in-target apt-get update ; \
+d-i preseed/late_command string \
+    in-target apt-get --yes purge linux-image-extra-3.13.0-24-generic;\
+    in-target apt-get --yes purge linux-image-3.13.0-24-generic;\
+    in-target apt-get --yes install linux-image-extra-3.13.0-34-generic --reinstall; \
+    chroot /target sh -c "/usr/sbin/update-initramfs -c -k all"; \
+    in-target apt-get update ; \
     in-target apt-get -y dist-upgrade ; \
     in-target apt-get -y autoremove ; \
     in-target apt-get autoclean ; \
