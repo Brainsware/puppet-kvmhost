@@ -154,7 +154,7 @@ d-i preseed/late_command string \
     /bin/echo -e '$interfaces' > /target/etc/network/interfaces ; \
     /bin/echo -e '$host' > /target/etc/hostname ; \
     /bin/rm /target/etc/resolvconf/resolv.conf.d/base ; \
-    /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.conf ; \
+    /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.internal.conf ; \
     /bin/sed -r -i -e '/nameserver [0-9]+\./d' /target/etc/resolvconf/resolv.conf.d/base ; \
     /bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
     /bin/mkdir -p /target/etc/puppet ; \

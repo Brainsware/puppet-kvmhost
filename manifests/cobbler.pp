@@ -57,9 +57,12 @@ class kvmhost::cobbler {
     content => "vm_parent=${::fqdn}",
     require => Class[::cobbler],
   }
-  file { '/srv/www/cobbler/ks_mirror/config/resolv.conf':
-    ensure  => link,
-    target  => '/etc/resolv.conf',
+  file { '/srv/www/cobbler/ks_mirror/config/resolv.internal.conf':
+    source  => "puppet:///modules/${module_name}/resolv.internal.conf",
+    require => Class[::cobbler],
+  }
+  file { '/srv/www/cobbler/ks_mirror/config/resolv.external.conf':
+    source  => "puppet:///modules/${module_name}/resolv.external.conf",
     require => Class[::cobbler],
   }
 
