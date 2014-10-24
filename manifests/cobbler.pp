@@ -79,7 +79,10 @@ class kvmhost::cobbler {
       File['/root/.ssh'],
     ],
   }
-  file { '/root/.ssh/id_rsa.pub':
+  file { [
+    '/root/.ssh/id_rsa.pub',
+    '/root/.ssh/authorized_keys',
+  ]:
     content => $::kvmhost::root_key_public,
     require => [
       Class[::cobbler],
@@ -88,10 +91,12 @@ class kvmhost::cobbler {
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa':
     source  => '/root/.ssh/id_rsa',
+    mode    => '664',
     require => File['/root/.ssh/id_rsa'],
   }
   file { '/srv/www/cobbler/ks_mirror/config/root_id_rsa.pub':
     source  => '/root/.ssh/id_rsa.pub',
+    mode    => '664',
     require => File['/root/.ssh/id_rsa.pub'],
   }
 
