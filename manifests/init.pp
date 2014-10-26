@@ -120,7 +120,7 @@ class kvmhost (
   create_resources('cobblersystem', $cobblersystems, $system_defaults)
 
   if $export_dns {
-    $dns_records = cobblersystems_to_unbound($cobblersystems, {})
+    $dns_records = cobblersystems_to_unbound($cobblersystems)
     create_resources('@@unbound::record', $dns_records)
   }
 
