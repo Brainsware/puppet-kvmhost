@@ -54,7 +54,7 @@ class kvmhost::cobbler {
     require => Class[::cobbler],
   }
   file { '/srv/www/cobbler/ks_mirror/config/vm_parent.txt':
-    content => "vm_parent=${::fqdn}",
+    content => "vm_parent=${::fqdn}\n",
     require => Class[::cobbler],
   }
   file { '/srv/www/cobbler/ks_mirror/config/resolv.internal.conf':
