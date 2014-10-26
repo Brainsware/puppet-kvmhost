@@ -88,8 +88,7 @@ options/relatime{ noatime } \
 # create root user
 d-i passwd/make-user boolean false
 d-i passwd/root-login boolean true
-d-i passwd/root-password password <%= @defaultrootpw %>
-d-i passwd/root-password-again password <%= @defaultrootpw %>
+d-i passwd/root-password-crypted password $default_password_crypted
 
 
 # enable ALL THE Ubuntu repos (universe, multiverse, restricted, extras, backports)
