@@ -19,10 +19,6 @@ chattr -i /etc/network/interfaces
 
 # replace resolvconf, with a file.
 apt-get purge --force-yes -f resolvconf
-rm -f /etc/resolv.conf
-wget -P/etc http://192.168.122.1/cblr/ks_mirror/config/resolv.conf
-rm -f /etc/puppet/puppet.conf
-wget -P/etc http://192.168.122.1/cblr/ks_mirror/config/puppet.conf
 
 apt-get update
 apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
