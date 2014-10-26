@@ -19,15 +19,11 @@
 # takes an Hash of cobblersystems and transforms them to a Hash of unbound record hashes
 
 module Puppet::Parser::Functions
-  newfunction(:cobblersystems_to_unbound, :type => :rvalue, :doc => <<-EOS
-  takes an Hash of cobblersystems and transforms them to a Hash of unbound record hashes
-  EOS
+  newfunction(:cobblersystems_to_unbound,
+    :type  => :rvalue,
+    :arity => 1,
+    :doc   => 'takes an Hash of cobblersystems and transforms them to a Hash of unbound record hashes'
   ) do |arguments|
-
-    if (arguments.size != 1) then
-      raise(Puppet::ParseError, "cobblersystems_to_unbound(): Wrong number of arguments "+
-            "given #{arguments.size} for 1.")
-    end
 
     input = arguments[0]
     output = {}
