@@ -124,5 +124,5 @@ class kvmhost (
     create_resources('@@unbound::record', $dns_records)
   }
 
-  Class[::cobbler] -> File <| |> -> Cobblerdistro <| |> -> Cobblerprofile <| |> -> Cobblersystem <| |>
+  Class[::cobbler] -> Cobblerdistro <| |> -> Cobblerprofile <| |> -> Cobblersystem <| |>
 }
