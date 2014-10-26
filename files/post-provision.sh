@@ -14,6 +14,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+# set network/interfaces mutable again
+chattr -i /etc/network/interfaces
+
 # replace resolvconf, with a file.
 apt-get purge --force-yes -f resolvconf
 rm -f /etc/resolv.conf

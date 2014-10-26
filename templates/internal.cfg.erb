@@ -142,16 +142,13 @@ d-i pkgsel/updatedb boolean true
 #set $host = $hostname.split('.')[0]
 
 d-i preseed/late_command string \
-    in-target apt-get --yes purge linux-image-extra-3.13.0-24-generic;\
-    in-target apt-get --yes purge linux-image-3.13.0-24-generic;\
-    in-target apt-get --yes install linux-image-extra-3.13.0-34-generic --reinstall; \
-    chroot /target sh -c "/usr/sbin/update-initramfs -c -k all"; \
     in-target apt-get update ; \
     in-target apt-get -y dist-upgrade ; \
     in-target apt-get -y autoremove ; \
     in-target apt-get autoclean ; \
     in-target apt-get clean ; \
     /bin/echo -e '$interfaces' > /target/etc/network/interfaces ; \
+    chattr +i /target/etc/network/interfaces ; \
     /bin/echo -e '$host' > /target/etc/hostname ; \
     /bin/rm /target/etc/resolvconf/resolv.conf.d/base ; \
     /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.internal.conf ; \
@@ -167,8 +164,7 @@ d-i preseed/late_command string \
     cp /target/root/.ssh/id_rsa.pub /target/root/.ssh/authorized_keys ; \
     /usr/bin/wget -P/target/usr/local/sbin http://$http_server/cblr/ks_mirror/config/post-provision.sh ; \
     /usr/bin/wget -P/target/etc/facter/facts.d http://$http_server/cblr/ks_mirror/config/vm_parent.txt ; \
-    /bin/chmod +x /target/usr/local/sbin/post-provision.sh ; \
-    killall.sh ; netcfg
+    /bin/chmod +x /target/usr/local/sbin/post-provision.sh ;
 
 # Verbose output and no boot splash screen.
 d-i	debian-installer/quiet	boolean false
