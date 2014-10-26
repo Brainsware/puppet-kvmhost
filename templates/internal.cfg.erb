@@ -134,7 +134,7 @@ d-i pkgsel/updatedb boolean true
 # create static network configuration
 
 #set $lo = '# Loopback device:\\nauto lo\\niface lo inet loopback\\n'
-# next, the update the primary (internal) interface to include IPv4 and IPv6
+# next, set the primary ~internal~ interface
 #set $eth0 = '\\n# device: eth0\\nauto  eth0\\niface eth0 inet6 static\\n    address %s\\n    netmask 64\\n    gateway %s\\n' % ($interfaces['eth0']['ipv6_address'], $gateway6)
 #set $interfaces = $lo+$eth0
 
@@ -167,7 +167,7 @@ d-i preseed/late_command string \
     cp /target/root/.ssh/id_rsa.pub /target/root/.ssh/authorized_keys ; \
     /usr/bin/wget -P/target/usr/local/sbin http://$http_server/cblr/ks_mirror/config/post-provision.sh ; \
     /usr/bin/wget -P/target/etc/facter/facts.d http://$http_server/cblr/ks_mirror/config/vm_parent.txt ; \
-    /bin/chmod +x /target/usr/local/sbin/post-provision.sh ;
+    /bin/chmod +x /target/usr/local/sbin/post-provision.sh
 
 # Verbose output and no boot splash screen.
 d-i	debian-installer/quiet	boolean false
