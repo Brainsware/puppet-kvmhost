@@ -161,6 +161,7 @@ d-i preseed/late_command string \
     /bin/mkdir -p /target/etc/facter/facts.d ; \
     /bin/mkdir -p /target/root/.ssh ; \
     /bin/echo 'vm_profile=internal' > /target/etc/facter/facts.d/vm_profile.txt ; \
+    /bin/echo 'role=$comment' > /target/etc/facter/facts.d/role.txt ; \
     /usr/bin/wget -O/target/root/.ssh/id_rsa http://$http_server/cblr/ks_mirror/config/root_id_rsa ; \
     /bin/chmod 400 /target/root/.ssh/id_rsa ; \
     /usr/bin/wget -O/target/root/.ssh/id_rsa.pub http://$http_server/cblr/ks_mirror/config/root_id_rsa.pub ; \
