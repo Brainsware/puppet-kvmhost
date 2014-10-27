@@ -120,7 +120,7 @@ class kvmhost (
   create_resources('cobblerprofile', $cobblerprofiles, $profile_defaults)
 
   $cobblersystems  = hiera('cobblersystems',         {})
-  $system_defaults = hiera('cobblersystem_defaults', {})
+  $system_defaults = hiera_hash('cobblersystem_defaults', {})
   $merged_systems  = resources_deep_merge($cobblersystems, $system_defaults)
   create_resources('cobblersystem', $merged_systems)
 
