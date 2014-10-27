@@ -51,6 +51,10 @@ class kvmhost (
     content => template('kvmhost/internal.cfg.erb'),
     require => Class[::cobbler],
   }
+  file { '/var/lib/cobbler/kickstarts/external.cfg':
+    content => template('kvmhost/external.cfg.erb'),
+    require => Class[::cobbler],
+  }
   file { '/srv/www/cobbler/ks_mirror/config/puppet.conf':
     source  => 'puppet:///modules/kvmhost/puppet.conf',
     require => Class[::cobbler],
