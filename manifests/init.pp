@@ -121,7 +121,8 @@ class kvmhost (
 
   $cobblersystems  = hiera('cobblersystems',         {})
   $system_defaults = hiera('cobblersystem_defaults', {})
-  create_resources('cobblersystem', $cobblersystems, $system_defaults)
+  $merged_systems  = resources_deep_merge($cobblersystems, $system_defaults)
+  create_resources('cobblersystem', $merged_systems)
 
   if $export_dns {
     $dns_records = cobblersystems_to_unbound($cobblersystems)
