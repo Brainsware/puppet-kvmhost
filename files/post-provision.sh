@@ -23,6 +23,8 @@ apt-get purge --force-yes -f resolvconf
 apt-get update
 apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
 
+perl -p -i -e "s/  certname = .*/  certname = $(facter -p fqdn)/"
+
 # remove old kernel:
 dpkg -l | awk '/raring/{print $2}' | xargs apt-get purge -y
 
