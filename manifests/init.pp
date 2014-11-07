@@ -111,15 +111,15 @@ class kvmhost (
     ],
   }
 
-  $cobblerdistros  = hiera('cobblerdistros',         {})
-  $distro_defaults = hiera('cobblerdistro_defaults', {})
+  $cobblerdistros  = hiera_hash('cobblerdistros',         {})
+  $distro_defaults = hiera_hash('cobblerdistro_defaults', {})
   create_resources('cobblerdistro', $cobblerdistros, $distro_defaults)
 
-  $cobblerprofiles  = hiera('cobblerprofiles',         {})
-  $profile_defaults = hiera('cobblerprofile_defaults', {})
+  $cobblerprofiles  = hiera_hash('cobblerprofiles',         {})
+  $profile_defaults = hiera_hash('cobblerprofile_defaults', {})
   create_resources('cobblerprofile', $cobblerprofiles, $profile_defaults)
 
-  $cobblersystems  = hiera('cobblersystems',         {})
+  $cobblersystems  = hiera_hash('cobblersystems',         {})
   $system_defaults = hiera_hash('cobblersystem_defaults', {})
   $merged_systems  = resources_deep_merge($cobblersystems, $system_defaults)
   create_resources('cobblersystem', $merged_systems)
