@@ -1,4 +1,4 @@
-#  Copyright 2014 Brainsware
+#  Copyright 2015 Brainsware
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -91,8 +91,7 @@ d-i passwd/root-login boolean true
 d-i passwd/root-password-crypted password $default_password_crypted
 
 
-# enable ALL THE Ubuntu repos (universe, multiverse, restricted, extras, backports)
-# but since hetzner doesn't have source repos, don't enable those.
+# enable ALL THE Ubuntu repos (universe, multiverse, restricted, extras, backports, updates)
 d-i apt-setup/universe boolean true
 d-i apt-setup/universe/source boolean false
 d-i apt-setup/multiverse boolean true
@@ -106,11 +105,11 @@ d-i apt-setup/updates boolean true
 d-i apt-setup/updates/source boolean false
 
 # Add puppetlabs' repo
-d-i apt-setup/local1/repository string \
+d-i apt-setup/local0/repository string \
     http://apt.puppetlabs.com $os_version main dependencies
-d-i apt-setup/local1/comment Puppetlabs' APT repository
-d-i apt-setup/local1/source boolean false
-d-i apt-setup/local1/key string \
+d-i apt-setup/local0/comment Puppetlabs' APT repository
+d-i apt-setup/local0/source boolean false
+d-i apt-setup/local0/key string \
     http://apt.puppetlabs.com/pubkey.gpg
 
 
