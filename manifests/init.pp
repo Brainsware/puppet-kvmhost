@@ -55,10 +55,6 @@ class kvmhost (
     content => template('kvmhost/external.cfg.erb'),
     require => Class[::cobbler],
   }
-  file { '/srv/www/cobbler/ks_mirror/config/puppet.conf':
-    source  => '/etc/puppet/puppet.conf',
-    require => Class[::cobbler],
-  }
   file { '/srv/www/cobbler/ks_mirror/config/post-provision.sh':
     source  => 'puppet:///modules/kvmhost/post-provision.sh',
     mode    => '0755',

@@ -149,7 +149,6 @@ d-i preseed/late_command string \
     /bin/sed -r -i -e '/nameserver [0-9]+\./d' /target/etc/resolvconf/resolv.conf.d/base ; \
     /bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
     /bin/mkdir -p /target/etc/puppet ; \
-    /usr/bin/wget -O/target/etc/puppet http://$http_server/cblr/ks_mirror/config/puppet.conf ; \
     /bin/mkdir -p /target/etc/facter/facts.d ; \
     /bin/mkdir -p /target/root/.ssh ; \
     /bin/echo 'vm_profile=internal' > /target/etc/facter/facts.d/vm_profile.txt ; \
