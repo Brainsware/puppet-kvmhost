@@ -26,7 +26,7 @@ apt-get install -yy -f linux-generic-lts-trusty-eol-upgrade
 # remove old kernel:
 dpkg -l | awk '/raring|saucy|utopic/{print $2}' | xargs apt-get purge -y
 
-/opt/puppetlabs/puppet/bin/gem install r10k
+/opt/puppetlabs/puppet/bin/gem install r10k hiera-file
 
 
 while ! /opt/puppetlabs/puppet/bin/r10k deploy environment -p ; do
