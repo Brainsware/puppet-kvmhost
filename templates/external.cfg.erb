@@ -44,9 +44,9 @@ d-i hw-detect/load_firmware boolean true
 
 # Setup the installation source
 d-i mirror/country string manual
-d-i mirror/http/mirror select de.archive.ubuntu.com
-d-i mirror/http/hostname string de.archive.ubuntu.com
-d-i mirror/http/directory string /ubuntu
+d-i mirror/http/mirror select mirror.hetzner.de
+d-i mirror/http/hostname string mirror.hetzner.de
+d-i mirror/http/directory string /ubuntu/packages
 
 d-i mirror/suite string $os_version
 
