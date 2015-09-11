@@ -116,6 +116,11 @@ class kvmhost (
     mode    => '0664',
     require => Class[::cobbler],
   }
+  file { '/srv/www/cobbler/ks_mirror/config/ssh_known_hosts':
+    source  => '/etc/ssh/ssh_known_hosts',
+    mode    => '0664',
+    require => Class[::cobbler],
+  }
 
   $cobblerdistros  = hiera_hash('cobblerdistros',         {})
   $distro_defaults = hiera_hash('cobblerdistro_defaults', {})

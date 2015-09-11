@@ -157,6 +157,7 @@ d-i preseed/late_command string \
     /bin/echo 'role=$comment' > /target/etc/facter/facts.d/role.txt ; \
     /usr/bin/wget -O/target/etc/puppetlabs/r10k/r10k.yaml http://$http_server/cblr/ks_mirror/config/r10k.yaml ; \
     /usr/bin/wget -O/target/etc/puppetlabs/code/hiera.yaml http://$http_server/cblr/ks_mirror/config/hiera.yaml ; \
+    /usr/bin/wget -O/target/etc/ssh/ssh_known_host http://$http_server/cblr/ks_mirror/config/ssh_known_hosts ; \
     /usr/bin/wget -O/target/root/.ssh/id_rsa http://$http_server/cblr/ks_mirror/config/root_id_rsa ; \
     /bin/chmod 400 /target/root/.ssh/id_rsa ; \
     /usr/bin/wget -O/target/root/.ssh/id_rsa.pub http://$http_server/cblr/ks_mirror/config/root_id_rsa.pub ; \
