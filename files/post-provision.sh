@@ -27,11 +27,21 @@ apt-get install -yy -f linux-generic-lts-trusty-eol-upgrade
 dpkg -l | awk '/raring|saucy|utopic/{print $2}' | xargs apt-get purge -y
 
 /opt/puppetlabs/puppet/bin/gem install r10k
-/opt/puppetlabs/puppet/bin/r10k deploy environment -p
+
+
+while ! /opt/puppetlabs/puppet/bin/r10k deploy environment -p ; do
+	# run r10k as often as necessary until it finishes successfully
+  # because our network is super flakey D':
+  sleep 1
+done
+
 
 while ! /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp ; do
 	# run puppet as often as necessary before the host is setup
-	sleep 1
+  # because puppet reconfigures our network, we'll pull it up and down as needed ;O
+  ifdown eth0
+  ifup eth0
 done
+
 # When we're done, we can reboot, and everything's perfect.
 reboot
