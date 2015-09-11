@@ -21,14 +21,15 @@ chattr -i /etc/network/interfaces
 apt-get purge --force-yes -f resolvconf
 
 apt-get update
-apt-get install -yy -f linux-generic-lts-saucy-eol-upgrade
-
-perl -p -i -e "s/.*certname.* =.*/  certname = $(facter -p fqdn)/" /etc/puppet/puppet.conf
+apt-get install -yy -f linux-generic-lts-trusty-eol-upgrade
 
 # remove old kernel:
-dpkg -l | awk '/raring/{print $2}' | xargs apt-get purge -y
+dpkg -l | awk '/raring|saucy|utopic/{print $2}' | xargs apt-get purge -y
 
-while ! /usr/bin/puppet agent -t --waitforcert 30 --debug ; do
+/opt/puppetlabs/puppet/bin/gem install r10k
+/opt/puppetlabs/puppet/bin/r10k deploy environment -p
+
+while ! /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp ; do
 	# run puppet as often as necessary before the host is setup
 	sleep 1
 done

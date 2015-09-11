@@ -106,7 +106,7 @@ d-i apt-setup/updates/source boolean false
 
 # Add puppetlabs' repo
 d-i apt-setup/local0/repository string \
-    http://apt.puppetlabs.com $os_version main dependencies
+    http://apt.puppetlabs.com $os_version PC1
 d-i apt-setup/local0/comment Puppetlabs' APT repository
 d-i apt-setup/local0/source boolean false
 d-i apt-setup/local0/key string \
@@ -115,8 +115,8 @@ d-i apt-setup/local0/key string \
 
 tasksel tasksel/first multiselect standard
 d-i pkgsel/include string openssh-server build-essential git lsb-release ntp vim-nox acpid software-properties-common \
-                          byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-generic-lts-utopic virt-what \
-                          puppet facter hiera puppet-lint ubuntu-extras-keyring
+                          byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-generic-lts-trusty \
+                          puppet-agent ubuntu-extras-keyring
 d-i pkgsel/language-packs multiselect en
 #d-i pkgsel/upgrade select full-upgrade
 d-i pkgsel/install-language-support boolean false
@@ -150,10 +150,13 @@ d-i preseed/late_command string \
     /bin/rm /target/etc/resolvconf/resolv.conf.d/base ; \
     /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.external.conf ; \
     /bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
-    /bin/mkdir -p /target/etc/puppet ; \
     /bin/mkdir -p /target/etc/facter/facts.d ; \
+    /bin/mkdir -p /etc/puppetlabs/r10k/ /etc/puppetlabs/code/ ; \
     /bin/mkdir -p /target/root/.ssh ; \
     /bin/echo 'vm_profile=external' > /target/etc/facter/facts.d/vm_profile.txt ; \
+    /bin/echo 'role=$comment' > /target/etc/facter/facts.d/role.txt ; \
+    /usr/bin/wget -O/target/etc/puppetlabs/r10k/r10k.yaml http://$http_server/cblr/ks_mirror/config/r10k.yaml ; \
+    /usr/bin/wget -O/target/etc/puppetlabs/code/hiera.yaml http://$http_server/cblr/ks_mirror/config/hiera.yaml ; \
     /usr/bin/wget -O/target/root/.ssh/id_rsa http://$http_server/cblr/ks_mirror/config/root_id_rsa ; \
     /bin/chmod 400 /target/root/.ssh/id_rsa ; \
     /usr/bin/wget -O/target/root/.ssh/id_rsa.pub http://$http_server/cblr/ks_mirror/config/root_id_rsa.pub ; \
