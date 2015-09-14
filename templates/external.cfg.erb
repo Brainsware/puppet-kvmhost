@@ -151,7 +151,7 @@ d-i preseed/late_command string \
     /usr/bin/wget -O/target/etc/resolvconf/resolv.conf.d/base http://$http_server/cblr/ks_mirror/config/resolv.external.conf ; \
     /bin/sed -i -e 's/ubuntu/$host $hostname/' /target/etc/hosts ; \
     /bin/mkdir -p /target/etc/facter/facts.d ; \
-    /bin/mkdir -p /etc/puppetlabs/r10k/ /etc/puppetlabs/code/ ; \
+    /bin/mkdir -p /target/etc/puppetlabs/r10k/ /target/etc/puppetlabs/code/ ; \
     /bin/mkdir -p /target/root/.ssh ; \
     /bin/echo 'vm_profile=external' > /target/etc/facter/facts.d/vm_profile.txt ; \
     /bin/echo 'role=$comment' > /target/etc/facter/facts.d/role.txt ; \
