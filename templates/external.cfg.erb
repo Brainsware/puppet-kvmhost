@@ -115,7 +115,7 @@ d-i apt-setup/local0/key string \
 
 tasksel tasksel/first multiselect standard
 d-i pkgsel/include string openssh-server build-essential git lsb-release ntp vim-nox acpid software-properties-common \
-                          byobu tmux curl zsh exuberant-ctags make htop sysstat linux-tools-generic-lts-trusty \
+                          byobu tmux curl fish exuberant-ctags make htop sysstat linux-tools-generic-lts-trusty \
                           puppet-agent ubuntu-extras-keyring
 d-i pkgsel/language-packs multiselect en
 #d-i pkgsel/upgrade select full-upgrade
