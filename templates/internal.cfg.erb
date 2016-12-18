@@ -1,4 +1,4 @@
-#  Copyright 2015 Brainsware
+#  Copyright 2016 Brainsware
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 d-i debian-installer/language string en
 d-i debian-installer/country string AT
 d-i debian-installer/locale string en_IE.UTF-8
-d-i localechooser/supported-locales en_US.UTF-8, en_IE.UTF-8, de_AT.UTF-8 
+d-i localechooser/supported-locales en_US.UTF-8, en_IE.UTF-8, de_AT.UTF-8
 d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/xkb-keymap string en
 d-i keyboard-configuration/layoutcode string en
@@ -57,34 +57,16 @@ d-i clock-setup/ntp-server string europe.pool.ntp.org
 
 
 # erase partions
-d-i partman/early_command /bin/dd if=/dev/zero of=/dev/vda bs=10M count=15120
-# Then, create an LVM setup
 d-i partman-auto/disk string /dev/vda
-d-i partman-auto-lvm/guided_size string max
-d-i partman-auto-lvm/new_vg_name string vm0
-d-i partman-auto-lvm/no_boot boolean true
-d-i partman-auto/method string lvm
+d-i partman-auto/method string regular
 d-i partman-auto/purge_lvm_from_device boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
 d-i partman/confirm_write_new_label boolean true
 d-i partman/default_filesystem string ext4
-d-i partman-lvm/confirm boolean true
-d-i partman-lvm/confirm_nooverwrite boolean true
-d-i partman-lvm/device_remove_lvm boolean true
-d-i partman-md/device_remove_md boolean true
-d-i partman-auto/choose_recipe select root-swap
-d-i partman-auto/expert_recipe string root-swap ::  \
-512 1024 200% linux-swap method{ swap } \
-format{ } \$lvmok{ } lv_name{ lv_swap } \
-. \
-1024 10000 102400000 ext4 method{ lvm } \
-\$lvmok{ } mountpoint{ / } lv_name{ lv_root } \
-format{ } use_filesystem{ } filesystem{ ext4 } \
-options/relatime{ noatime } \
-.
-
+d-i partman-auto/choose_recipe select \
+  All files in one partition (recommended for new users)
 # create root user
 d-i passwd/make-user boolean false
 d-i passwd/root-login boolean true
