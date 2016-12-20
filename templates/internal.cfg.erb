@@ -56,14 +56,14 @@ d-i clock-setup/ntp boolean true
 d-i clock-setup/ntp-server string europe.pool.ntp.org
 
 # erase partions
-d-i partman/early_command /bin/dd if=/dev/zero of=/dev/vda bs=10M count=15120
+d-i partman-auto/purge_lvm_from_device boolean true
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-lvm/device_remove_lvm_span boolean true
+d-i partman-md/device_remove_md boolean true
+d-i partman/confirm_nooverwrite boolean true
+
 d-i partman-auto/disk string /dev/vda
 d-i partman-auto/method string regular
-d-i partman-auto/purge_lvm_from_device boolean true
-d-i partman/choose_partition select finish
-d-i partman/confirm boolean true
-d-i partman/confirm_nooverwrite boolean true
-d-i partman/confirm_write_new_label boolean true
 d-i partman/default_filesystem string ext4
 d-i partman-basicfilesystems/no_swap boolean false
 d-i partman-auto/expert_recipe string justroot :: 1000 50 -1 ext4 \
@@ -71,7 +71,11 @@ d-i partman-auto/expert_recipe string justroot :: 1000 50 -1 ext4 \
      format{ } use_filesystem{ } filesystem{ ext4 } \
      mountpoint{ / } \
     .
-d-i partman-auto/choose_recipe select justoot
+d-i partman-auto/choose_recipe select justroot
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman/confirm_write_new_label boolean true
+
 # create root user
 d-i passwd/make-user boolean false
 d-i passwd/root-login boolean true
