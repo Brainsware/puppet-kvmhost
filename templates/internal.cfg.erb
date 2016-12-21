@@ -26,7 +26,10 @@ d-i console-keymaps-at/keymap string en-latin1-nodeadkeys
 #set $hostname = $hostname or $system_name
 #set $gateway6 = $interfaces['eth0']['ipv6_default_gateway']
 
-d-i preseed/early_command string ip route replace default via $gateway6 dev eth0
+d-i preseed/early_command string \
+  ip route replace default via $gateway6 dev eth0; \
+  umount /media || true # This is needed for paritioning
+
 
 d-i netcfg/dhcp_timeout string 10
 d-i netcfg/disable_autoconfig boolean true
@@ -56,6 +59,7 @@ d-i clock-setup/ntp boolean true
 d-i clock-setup/ntp-server string europe.pool.ntp.org
 
 # erase partions
+d-i partman/umount_active boolean true
 d-i partman-auto/purge_lvm_from_device boolean true
 d-i partman-lvm/device_remove_lvm boolean true
 d-i partman-lvm/device_remove_lvm_span boolean true
