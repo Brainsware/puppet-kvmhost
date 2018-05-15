@@ -106,11 +106,6 @@ class kvmhost (
       Class[::cobbler],
     ],
   }
-  file { '/srv/www/cobbler/ks_mirror/config/hiera.yaml':
-    source  => '/etc/puppetlabs/code/hiera.yaml',
-    mode    => '0664',
-    require => Class[::cobbler],
-  }
   file { '/srv/www/cobbler/ks_mirror/config/r10k.yaml':
     source  => '/etc/puppetlabs/r10k/r10k.yaml',
     mode    => '0664',
